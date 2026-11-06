@@ -237,11 +237,12 @@ async function result(id, rep) {
     try {
       const pos0 = stlPos(await (await fetch(`${API}/api/jobs/${id}/files/original.stl`)).arrayBuffer());
       const r0 = check(pos0); first = r0; firstScaled = true;
-      frame(show(0, pos0, 0x9aa0a8, r0.badEdges)); ui.panel.hidden = false; ui.skp.hidden = true;
+      frame(show(0, pos0, 0x9aa0a8, r0.badEdges)); ui.panel.hidden = false; ui.skp.hidden = true; panel(r0);
     } catch (e) { console.warn(e); }
   }
   panes[1].insertAdjacentHTML("beforeend", `<span class="loading">${T.loading}</span>`);
-  const pos = stlPos(await (await fetch(`${API}/api/jobs/${id}/files/${rep.files.model}`)).arrayBuffer());
+  const view = (rep.previews || {}).model || rep.files.model;          // light copy for the viewer when the result is large
+  const pos = stlPos(await (await fetch(`${API}/api/jobs/${id}/files/${encodeURIComponent(view)}`)).arrayBuffer());
   const g = show(1, pos, 0x3b82c4);
   if (!V[0].group) frame(g);
   if (first) { try { panel(first, check(pos)); } catch (e) { console.warn(e); } }
