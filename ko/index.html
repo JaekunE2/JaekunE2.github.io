@@ -26,11 +26,24 @@
 </nav></div>
 
 <header class="hero">
-  <div class="wrap">
-    <span class="eyebrow">SketchUp → 3D 프린트</span>
-    <h1>SketchUp 건축 모델을<br><span class="grad">바로 출력되는 축소 모형으로</span></h1>
-    <p class="lead">SketchUp에서 저장한 .skp를 그대로 올리세요. 격리된 환경에서 변환하고, 고른 축척에서 출력을 망칠 문제를 찾아 입면은 그대로 둔 채 하나의 닫힌 솔리드로 다시 만듭니다. 가입 없이 무료.</p>
-    <div class="flow"><span>SKP</span><i class="arr"></i><span>격리 변환</span><i class="arr"></i><span>축척 기준 진단</span><i class="arr"></i><span>솔리드 재구성</span><i class="arr"></i><span>STL</span></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">SketchUp → 3D 프린트</span>
+      <h1>SketchUp 건축 모델을<br><span class="grad">바로 출력되는 축소 모형으로</span></h1>
+      <p class="lead">SketchUp에서 저장한 .skp를 그대로 올리세요. 격리된 환경에서 변환하고, 고른 축척에서 출력을 망칠 문제를 찾아 입면은 그대로 둔 채 하나의 닫힌 솔리드로 다시 만듭니다. 가입 없이 무료.</p>
+      <div class="ctas"><a class="primary-btn" href="#tool">.skp 올리기</a><a class="ghost-btn" href="#showcase">실제 결과 보기</a></div>
+      <div class="flow"><span>SKP</span><i class="arr"></i><span>격리 변환</span><i class="arr"></i><span>축척 기준 진단</span><i class="arr"></i><span>솔리드 재구성</span><i class="arr"></i><span>STL</span></div>
+    </div>
+    <div class="hero-vis">
+      <div class="ba auto" data-ba>
+        <video class="b" src="../samples/house/before.mp4" poster="../samples/house/before.jpg" muted loop playsinline autoplay></video>
+        <video class="a" src="../samples/house/after.mp4" poster="../samples/house/after.jpg" muted loop playsinline autoplay></video>
+        <span class="t tl">수정 전</span><span class="t tr">수정 후</span><i class="bar"></i>
+      </div>
+      <div class="float f1"><b>738 → 0</b><span>열린 엣지, 타운하우스</span></div>
+      <div class="float f2"><b>146 → 1</b><span>조각이 하나로</span></div>
+      <div class="float f3"><b>1:200</b><span>출력 131 × 99 × 137 mm</span></div>
+    </div>
   </div>
 </header>
 
@@ -74,6 +87,17 @@
     <h2 class="sr">공개 SketchUp 모델로 잰 결과</h2>
     <p class="kicker">공개 SketchUp 모델로 잰 결과</p>
     <div class="stats"><div class="stat"><b>6</b><span>공개 SKP 모델</span></div><div class="stat"><b>13,503</b><span>수정 전 엣지 오류</span></div><div class="stat"><b>0</b><span>수정 후</span></div><div class="stat"><b>0.33 mm</b><span>원본과 편차(중앙값)</span></div></div>
+  </section>
+
+  <section id="showcase" class="showcase">
+    <div class="shead"><h2>끌어서 비교해 보세요</h2><p>같은 카메라로 찍은 수정 전과 후입니다. 건물을 고르세요. 빨간 선이 슬라이서가 막히는 엣지입니다.</p></div>
+    <div class="tabs" role="tablist"><button type="button" role="tab" class="tab on" data-id="house" data-meta="[&quot;1:200&quot;, &quot;26 × 20 × 27 m&quot;, &quot;131 × 99 × 137 mm&quot;, &quot;818 → 0&quot;, &quot;3:24&quot;]"><img src="../samples/house/after.jpg" alt="" loading="lazy"><span>유럽식 타운하우스</span></button><button type="button" role="tab" class="tab" data-id="tower" data-meta="[&quot;1:1,000&quot;, &quot;80 × 80 × 183 m&quot;, &quot;80 × 80 × 183 mm&quot;, &quot;590 → 0&quot;, &quot;2:01&quot;]"><img src="../samples/tower/after.jpg" alt="" loading="lazy"><span>고층 타워 (Hearst Tower 모델)</span></button><button type="button" role="tab" class="tab" data-id="twin-houses" data-meta="[&quot;1:400&quot;, &quot;57 × 38 × 26 m&quot;, &quot;142 × 94 × 66 mm&quot;, &quot;1,024 → 0&quot;, &quot;1:20&quot;]"><img src="../samples/twin-houses/after.jpg" alt="" loading="lazy"><span>대지 위 두 채의 주택</span></button><button type="button" role="tab" class="tab" data-id="housing-blocks" data-meta="[&quot;1:30&quot;, &quot;4 × 5 × 3 m&quot;, &quot;127 × 161 × 105 mm&quot;, &quot;10,899 → 0&quot;, &quot;8:03&quot;]"><img src="../samples/housing-blocks/after.jpg" alt="" loading="lazy"><span>공동주택 두 동</span></button><button type="button" role="tab" class="tab" data-id="long-house" data-meta="[&quot;1:400&quot;, &quot;60 × 29 × 12 m&quot;, &quot;149 × 71 × 29 mm&quot;, &quot;115 → 0&quot;, &quot;1:33&quot;]"><img src="../samples/long-house/after.jpg" alt="" loading="lazy"><span>단층 장옥</span></button><button type="button" role="tab" class="tab" data-id="walls" data-meta="[&quot;1:250&quot;, &quot;37 × 17 × 12 m&quot;, &quot;149 × 70 × 48 mm&quot;, &quot;57 → 0&quot;, &quot;1:21&quot;]"><img src="../samples/walls/after.jpg" alt="" loading="lazy"><span>벽체 매스</span></button></div>
+    <div class="ba big" data-ba>
+      <video class="b" muted loop playsinline preload="none"></video>
+      <video class="a" muted loop playsinline preload="none"></video>
+      <span class="t tl">수정 전</span><span class="t tr">수정 후</span><i class="bar"><em></em></i>
+    </div>
+    <div class="showmeta" id="showmeta" data-labels="[&quot;축척&quot;, &quot;실제 크기&quot;, &quot;출력 크기&quot;, &quot;엣지 오류&quot;, &quot;처리 시간&quot;]"></div>
   </section>
 
   <div class="ad" data-slot="top"></div>

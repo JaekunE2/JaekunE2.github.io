@@ -26,11 +26,24 @@
 </nav></div>
 
 <header class="hero">
-  <div class="wrap">
-    <span class="eyebrow">SketchUp → 3D print</span>
-    <h1>Turn SketchUp buildings into<br><span class="grad">print-ready scale models</span></h1>
-    <p class="lead">Drop a .skp straight from SketchUp. We convert it in a sandbox, find what will break the print at your scale and rebuild it as one closed solid that keeps the facade. Free, no sign-up.</p>
-    <div class="flow"><span>SKP</span><i class="arr"></i><span>Sandboxed conversion</span><i class="arr"></i><span>Diagnosis at scale</span><i class="arr"></i><span>Solid rebuild</span><i class="arr"></i><span>STL</span></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">SketchUp → 3D print</span>
+      <h1>Turn SketchUp buildings into<br><span class="grad">print-ready scale models</span></h1>
+      <p class="lead">Drop a .skp straight from SketchUp. We convert it in a sandbox, find what will break the print at your scale and rebuild it as one closed solid that keeps the facade. Free, no sign-up.</p>
+      <div class="ctas"><a class="primary-btn" href="#tool">Upload a .skp</a><a class="ghost-btn" href="#showcase">See real results</a></div>
+      <div class="flow"><span>SKP</span><i class="arr"></i><span>Sandbox</span><i class="arr"></i><span>Check at scale</span><i class="arr"></i><span>Rebuild</span><i class="arr"></i><span>STL</span></div>
+    </div>
+    <div class="hero-vis">
+      <div class="ba auto" data-ba>
+        <video class="b" src="samples/house/before.mp4" poster="samples/house/before.jpg" muted loop playsinline autoplay></video>
+        <video class="a" src="samples/house/after.mp4" poster="samples/house/after.jpg" muted loop playsinline autoplay></video>
+        <span class="t tl">Before</span><span class="t tr">After</span><i class="bar"></i>
+      </div>
+      <div class="float f1"><b>738 → 0</b><span>open edges, townhouse</span></div>
+      <div class="float f2"><b>146 → 1</b><span>pieces merged into one</span></div>
+      <div class="float f3"><b>1:200</b><span>131 × 99 × 137 mm print</span></div>
+    </div>
   </div>
 </header>
 
@@ -74,6 +87,17 @@
     <h2 class="sr">Measured on open SketchUp models</h2>
     <p class="kicker">Measured on open SketchUp models</p>
     <div class="stats"><div class="stat"><b>6</b><span>open SKP models</span></div><div class="stat"><b>13,503</b><span>edge errors before</span></div><div class="stat"><b>0</b><span>after</span></div><div class="stat"><b>0.33 mm</b><span>median deviation</span></div></div>
+  </section>
+
+  <section id="showcase" class="showcase">
+    <div class="shead"><h2>Drag to compare</h2><p>The same camera before and after. Pick a building; red marks the edges a slicer chokes on.</p></div>
+    <div class="tabs" role="tablist"><button type="button" role="tab" class="tab on" data-id="house" data-meta="[&quot;1:200&quot;, &quot;26 × 20 × 27 m&quot;, &quot;131 × 99 × 137 mm&quot;, &quot;818 → 0&quot;, &quot;3:24&quot;]"><img src="samples/house/after.jpg" alt="" loading="lazy"><span>Townhouse</span></button><button type="button" role="tab" class="tab" data-id="tower" data-meta="[&quot;1:1,000&quot;, &quot;80 × 80 × 183 m&quot;, &quot;80 × 80 × 183 mm&quot;, &quot;590 → 0&quot;, &quot;2:01&quot;]"><img src="samples/tower/after.jpg" alt="" loading="lazy"><span>High-rise tower (Hearst Tower model)</span></button><button type="button" role="tab" class="tab" data-id="twin-houses" data-meta="[&quot;1:400&quot;, &quot;57 × 38 × 26 m&quot;, &quot;142 × 94 × 66 mm&quot;, &quot;1,024 → 0&quot;, &quot;1:20&quot;]"><img src="samples/twin-houses/after.jpg" alt="" loading="lazy"><span>Two houses on a site</span></button><button type="button" role="tab" class="tab" data-id="housing-blocks" data-meta="[&quot;1:30&quot;, &quot;4 × 5 × 3 m&quot;, &quot;127 × 161 × 105 mm&quot;, &quot;10,899 → 0&quot;, &quot;8:03&quot;]"><img src="samples/housing-blocks/after.jpg" alt="" loading="lazy"><span>Two housing blocks</span></button><button type="button" role="tab" class="tab" data-id="long-house" data-meta="[&quot;1:400&quot;, &quot;60 × 29 × 12 m&quot;, &quot;149 × 71 × 29 mm&quot;, &quot;115 → 0&quot;, &quot;1:33&quot;]"><img src="samples/long-house/after.jpg" alt="" loading="lazy"><span>Long single-storey house</span></button><button type="button" role="tab" class="tab" data-id="walls" data-meta="[&quot;1:250&quot;, &quot;37 × 17 × 12 m&quot;, &quot;149 × 70 × 48 mm&quot;, &quot;57 → 0&quot;, &quot;1:21&quot;]"><img src="samples/walls/after.jpg" alt="" loading="lazy"><span>Walls-only massing</span></button></div>
+    <div class="ba big" data-ba>
+      <video class="b" muted loop playsinline preload="none"></video>
+      <video class="a" muted loop playsinline preload="none"></video>
+      <span class="t tl">Before</span><span class="t tr">After</span><i class="bar"><em></em></i>
+    </div>
+    <div class="showmeta" id="showmeta" data-labels="[&quot;Scale&quot;, &quot;Real size&quot;, &quot;Print size&quot;, &quot;Edge errors&quot;, &quot;Processing&quot;]"></div>
   </section>
 
   <div class="ad" data-slot="top"></div>

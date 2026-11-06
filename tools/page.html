@@ -26,11 +26,24 @@
 </nav></div>
 
 <header class="hero">
-  <div class="wrap">
-    <span class="eyebrow">{{eyebrow}}</span>
-    <h1>{{h1a}}<br><span class="grad">{{h1b}}</span></h1>
-    <p class="lead">{{sub}}</p>
-    <div class="flow">{{flow}}</div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">{{eyebrow}}</span>
+      <h1>{{h1a}}<br><span class="grad">{{h1b}}</span></h1>
+      <p class="lead">{{sub}}</p>
+      <div class="ctas"><a class="primary-btn" href="#tool">{{cta_up}}</a><a class="ghost-btn" href="#showcase">{{cta_samples}}</a></div>
+      <div class="flow">{{flow}}</div>
+    </div>
+    <div class="hero-vis">
+      <div class="ba auto" data-ba>
+        <video class="b" src="{{pre}}samples/house/before.mp4" poster="{{pre}}samples/house/before.jpg" muted loop playsinline autoplay></video>
+        <video class="a" src="{{pre}}samples/house/after.mp4" poster="{{pre}}samples/house/after.jpg" muted loop playsinline autoplay></video>
+        <span class="t tl">{{s_before}}</span><span class="t tr">{{s_after}}</span><i class="bar"></i>
+      </div>
+      <div class="float f1"><b>{{hero_f1}}</b><span>{{hero_f1s}}</span></div>
+      <div class="float f2"><b>{{hero_f2}}</b><span>{{hero_f2s}}</span></div>
+      <div class="float f3"><b>1:200</b><span>{{hero_f3s}}</span></div>
+    </div>
   </div>
 </header>
 
@@ -74,6 +87,17 @@
     <h2 class="sr">{{stats_h}}</h2>
     <p class="kicker">{{stats_h}}</p>
     <div class="stats">{{stats}}</div>
+  </section>
+
+  <section id="showcase" class="showcase">
+    <div class="shead"><h2>{{show_h}}</h2><p>{{show_p}}</p></div>
+    <div class="tabs" role="tablist">{{tabs}}</div>
+    <div class="ba big" data-ba>
+      <video class="b" muted loop playsinline preload="none"></video>
+      <video class="a" muted loop playsinline preload="none"></video>
+      <span class="t tl">{{s_before}}</span><span class="t tr">{{s_after}}</span><i class="bar"><em></em></i>
+    </div>
+    <div class="showmeta" id="showmeta" data-labels="{{meta_l}}"></div>
   </section>
 
   <div class="ad" data-slot="top"></div>

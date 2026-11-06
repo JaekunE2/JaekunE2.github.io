@@ -14,7 +14,7 @@ C = {
   eyebrow="SketchUp → 3D print", h1a="Turn SketchUp buildings into", h1b="print-ready scale models",
   sub="Drop a .skp straight from SketchUp. We convert it in a sandbox, find what will break the print at your scale "
       "and rebuild it as one closed solid that keeps the facade. Free, no sign-up.",
-  flow=["SKP", "Sandboxed conversion", "Diagnosis at scale", "Solid rebuild", "STL"],
+  flow=["SKP", "Sandbox", "Check at scale", "Rebuild", "STL"],
   pills=["Free beta", "No sign-up", ".skp · STL · OBJ · 3MF · GLB", "Files deleted after 24 h"],
   drop_b="Drop a .skp or STL here, or click to choose", drop_s="SketchUp 2017 or newer · STL · OBJ · PLY · GLB · 3MF · up to 50 MB",
   try_h="No file at hand? Try an open sample:",
@@ -61,6 +61,9 @@ C = {
      ("Is it free? Can I use the results commercially?", "Yes. The beta is free and supported by ads, and you keep all rights to your models and to the results."),
      ("Is the source code available?", "Not yet. The processing code and our own example models will be published later; for now the service is used through this page.")],
   cta_h="Your building, on the print bed today", cta_b="Convert a SketchUp file",
+  cta_up="Upload a .skp", cta_samples="See real results", hero_f1s="open edges, townhouse", hero_f2s="pieces merged into one", hero_f3s="131 × 99 × 137 mm print",
+  show_h="Drag to compare", show_p="The same camera before and after. Pick a building; red marks the edges a slicer chokes on.",
+  meta_l=("Scale", "Real size", "Print size", "Edge errors", "Processing"),
   credits="Sample models: MIT-licensed test files from SketchUp/testup-2 (Trimble Inc.), thomthom/solid-inspector, Eneroth3/eneroth-solid-tools and iamahsanmehmood/openskp.",
   footer=["Privacy", "Terms", "GitHub", "Contact"]),
  "ko": dict(
@@ -117,6 +120,9 @@ C = {
      ("무료인가요? 결과를 상업적으로 써도 되나요?", "네. 베타는 광고로 운영되는 무료 서비스이고, 모델과 결과의 권리는 모두 이용자에게 있습니다."),
      ("소스 코드는 공개되나요?", "아직은 아닙니다. 처리 코드와 자체 예시 모델은 추후 공개할 예정이고, 지금은 이 페이지에서 서비스로 사용하실 수 있습니다.")],
   cta_h="오늘 그 건물을 출력 베드 위에", cta_b="SketchUp 파일 변환하기",
+  cta_up=".skp 올리기", cta_samples="실제 결과 보기", hero_f1s="열린 엣지, 타운하우스", hero_f2s="조각이 하나로", hero_f3s="출력 131 × 99 × 137 mm",
+  show_h="끌어서 비교해 보세요", show_p="같은 카메라로 찍은 수정 전과 후입니다. 건물을 고르세요. 빨간 선이 슬라이서가 막히는 엣지입니다.",
+  meta_l=("축척", "실제 크기", "출력 크기", "엣지 오류", "처리 시간"),
   credits="샘플 모델: SketchUp/testup-2 (Trimble Inc.), thomthom/solid-inspector, Eneroth3/eneroth-solid-tools, iamahsanmehmood/openskp의 MIT 라이선스 테스트 파일.",
   footer=["개인정보처리방침", "이용약관", "GitHub", "문의"]),
 }
@@ -214,6 +220,10 @@ for k, c in C.items():
     uses = "".join(f'<div class="use"><h3>{e(t)}</h3><p>{e(d)}</p></div>' for t, d in c["uses"])
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in c["faq"])
     presets = "".join(f'<button type="button" class="chip{" on" if n == 100 else ""}" data-n="{n}">1:{n}</button>' for n in (50, 100, 200, 300, 500, 1000))
+    H = next(x for x in SAMPLES if x["id"] == "house")
+    tabs = "".join(f'<button type="button" role="tab" class="tab{" on" if i == 0 else ""}" data-id="{x["id"]}" '
+                   f'data-meta="{e(json.dumps([f"1:{x['scale']:,}", " × ".join(f"{v / 1000:.0f}" for v in x["real_mm"]) + " m", " × ".join(f"{v:.0f}" for v in x["print_mm"]) + " mm", f"{x['before']['open_edges'] + x['before']['nonmanifold_edges']:,} → {x['after']['open_edges'] + x['after']['nonmanifold_edges']:,}", f"{x['seconds'] // 60}:{x['seconds'] % 60:02d}"], ensure_ascii=False))}">'
+                   f'<img src="{pre}samples/{x["id"]}/after.jpg" alt="" loading="lazy"><span>{e(x["name_ko"] if ko else x["name_en"])}</span></button>' for i, x in enumerate(SAMPLES))
     ld = {"@context": "https://schema.org", "@type": "WebApplication", "name": "printdoctor", "url": "https://jaekune2.github.io/" + ("ko/" if ko else ""),
           "applicationCategory": "DesignApplication", "operatingSystem": "Web", "description": c["desc"],
           "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
@@ -236,6 +246,10 @@ for k, c in C.items():
                cmp_h=e(c["cmp_h"]), cmp=cmp, use_h=e(c["use_h"]), uses=uses, faq_h=e(c["faq_h"]), faq=faq,
                cta_h=e(c["cta_h"]), cta_b=e(c["cta_b"]), credits=e(c["credits"]), hash="#ko" if ko else "",
                f0=c["footer"][0], f1=c["footer"][1], f2=c["footer"][2], f3=c["footer"][3],
+               cta_up=e(c["cta_up"]), cta_samples=e(c["cta_samples"]), s_before=e(c["s_before"]), s_after=e(c["s_after"]),
+               hero_f1=f'{H["before"]["open_edges"]:,} → 0', hero_f1s=e(c["hero_f1s"]), hero_f2=f'{H["before"]["bodies"]:,} → 1', hero_f2s=e(c["hero_f2s"]),
+               hero_f3s=e(c["hero_f3s"]), show_h=e(c["show_h"]), show_p=e(c["show_p"]), tabs=tabs,
+               meta_l=e(json.dumps(c["meta_l"], ensure_ascii=False)),
                ld=json.dumps(ld, ensure_ascii=False), faqld=json.dumps(faqld, ensure_ascii=False))
     for key, val in rep.items():
         out = out.replace("{{" + key + "}}", str(val))
