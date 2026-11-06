@@ -3,99 +3,235 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>printdoctor · 무료 STL 수리, 3D 프린팅 오류 고치기</title>
-<meta name="description" content="STL·OBJ·GLB·3MF 모델의 구멍, 논매니폴드 엣지, 흩어진 조각을 브라우저에서 무료로 점검하고, 출력 가능한 닫힌 솔리드로 고칩니다. 가입 없이 무료.">
+<title>printdoctor · SketchUp 건축 모델을 3D 프린트 파일로</title>
+<meta name="description" content="SketchUp .skp(또는 STL·OBJ·3MF) 건물 모델을 올리면 열린 면, 논매니폴드 엣지, 겹친 그룹, 축척에서 너무 얇아지는 부재를 자동으로 고쳐 바로 출력되는 축소 모형 STL로 만들어 드립니다. 무료 베타.">
+<meta property="og:title" content="printdoctor · SketchUp 건축 모델을 3D 프린트 파일로">
+<meta property="og:description" content="SketchUp .skp(또는 STL·OBJ·3MF) 건물 모델을 올리면 열린 면, 논매니폴드 엣지, 겹친 그룹, 축척에서 너무 얇아지는 부재를 자동으로 고쳐 바로 출력되는 축소 모형 STL로 만들어 드립니다. 무료 베타.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jaekune2.github.io/samples/house/after.jpg">
 <link rel="alternate" hreflang="en" href="https://jaekune2.github.io/"><link rel="alternate" hreflang="ko" href="https://jaekune2.github.io/ko/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e2531f'/%3E%3Cpath d='M8 23V13l8-5 8 5v10z' fill='none' stroke='white' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "printdoctor", "url": "https://jaekune2.github.io/ko/", "applicationCategory": "DesignApplication", "operatingSystem": "Web", "description": "SketchUp .skp(또는 STL·OBJ·3MF) 건물 모델을 올리면 열린 면, 논매니폴드 엣지, 겹친 그룹, 축척에서 너무 얇아지는 부재를 자동으로 고쳐 바로 출력되는 축소 모형 STL로 만들어 드립니다. 무료 베타.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "어떤 SketchUp 버전을 지원하나요?", "acceptedAnswer": {"@type": "Answer", "text": "SketchUp 2017 이후에 저장한 파일은 그대로 열립니다. 거부되면 최신 SketchUp에서 다시 저장하거나 STL로 내보내 올려 주세요 (파일 > 내보내기 > 3D 모델)."}}, {"@type": "Question", "name": "숨긴 태그·레이어·객체는 어떻게 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "숨긴 객체와 숨긴 태그의 객체는 SketchUp 화면과 똑같이 빠집니다. 사람·나무·가구를 출력하지 않으려면 숨긴 뒤 올리세요."}}, {"@type": "Question", "name": "축척은 무엇을 고르나요?", "acceptedAnswer": {"@type": "Answer", "text": "실제로 출력할 1:N을 고르세요. 먼저 줄인 뒤 점검하기 때문에 그 축척에서 너무 얇아지는 부재를 찾아냅니다. 올리기 전에 출력 크기를 보여 드립니다."}}, {"@type": "Question", "name": ".skp 파일은 안전하게 처리되나요?", "acceptedAnswer": {"@type": "Answer", "text": "SketchUp 파일은 처리용 PC에서 다른 파일에 접근할 수 없는 저권한 격리 프로세스로 열고, 메모리와 시간에 상한을 둡니다. 모든 파일은 24시간 뒤 삭제됩니다."}}, {"@type": "Question", "name": "모양이 바뀌나요?", "acceptedAnswer": {"@type": "Answer", "text": "표면을 약 0.2 mm 해상도로 다시 만들기 때문에 그보다 작은 디테일은 부드러워집니다. 원본과의 편차(중앙값·95%)를 작업마다 보여 드립니다."}}, {"@type": "Question", "name": "요청 칸은 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "문장을 쓰면 에이전트가 수리 계획을 세웁니다. 예를 들어 난간은 지우고 글자는 남깁니다. 에이전트 처리는 하루 한도가 있고, 요청이 없으면 자동 수리가 돌아갑니다."}}, {"@type": "Question", "name": "무료인가요? 결과를 상업적으로 써도 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 베타는 광고로 운영되는 무료 서비스이고, 모델과 결과의 권리는 모두 이용자에게 있습니다."}}, {"@type": "Question", "name": "소스 코드는 공개되나요?", "acceptedAnswer": {"@type": "Answer", "text": "아직은 아닙니다. 처리 코드와 자체 예시 모델은 추후 공개할 예정이고, 지금은 이 페이지에서 서비스로 사용하실 수 있습니다."}}]}</script>
+<meta name="google-adsense-account" content="ca-pub-5502039335259677">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502039335259677" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="topbar"><nav class="wrap">
-  <a class="brand" href="./"><span class="logo"></span>printdoctor</a>
-  <span class="links"><a href="#tool">도구</a><a href="#how">작동 방식</a><a href="#faq">FAQ</a></span>
+  <a class="brand" href="./"><span class="logo"></span>printdoctor<small>for SketchUp</small></a>
+  <span class="links"><a href="#tool">변환하기</a><a href="#samples">샘플</a><a href="#how">작동 방식</a><a href="#scale">축척 가이드</a><a href="#faq">FAQ</a></span>
   <span class="lang"><a href="../" >EN</a><a href="./" aria-current="page">한국어</a></span>
 </nav></div>
-<main class="wrap">
-  <header class="hero">
-    <h1>3D 프린팅용 STL 수리</h1>
-    <p>모델을 놓으면 브라우저에서 바로 무료로 점검하고, 한 번 눌러 고칩니다. 겉모양은 그대로 두고 오류만 없앱니다. 구멍, 논매니폴드 엣지, 뒤집힌 면, 흩어진 조각, 노즐보다 얇은 부재까지 처리합니다.</p>
-    <div class="pills"><span class="pill">무료 베타</span><span class="pill">가입 없음</span><span class="pill">24시간 뒤 파일 삭제</span></div>
-  </header>
 
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">SketchUp → 3D 프린트</span>
+    <h1>SketchUp 건축 모델을<br><span class="grad">바로 출력되는 축소 모형으로</span></h1>
+    <p class="lead">SketchUp에서 저장한 .skp를 그대로 올리세요. 격리된 환경에서 변환하고, 고른 축척에서 출력을 망칠 문제를 찾아 입면은 그대로 둔 채 하나의 닫힌 솔리드로 다시 만듭니다. 가입 없이 무료.</p>
+    <div class="flow"><span>SKP</span><i class="arr"></i><span>격리 변환</span><i class="arr"></i><span>축척 기준 진단</span><i class="arr"></i><span>솔리드 재구성</span><i class="arr"></i><span>STL</span></div>
+  </div>
+</header>
+
+<main class="wrap">
   <section id="tool" class="tool">
-    <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden accept=".stl,.obj,.ply,.off,.glb,.gltf,.3mf">
-      <span class="ico"></span><b></b><small></small></label>
+    <div class="toolhead">
+      <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden accept=".skp,.stl,.obj,.ply,.off,.glb,.gltf,.3mf">
+        <span class="ico"></span><b>.skp나 STL을 여기로 끌어 놓거나 눌러서 고르세요</b><small>SketchUp 2017 이후 · STL · OBJ · PLY · GLB · 3MF · 최대 50 MB</small></label>
+      <div class="tryrow"><span>파일이 없다면 공개 샘플로 해 보세요:</span><div class="chips-s"><button type="button" class="chip-sample" data-id="house"><img src="../samples/house/before.jpg" alt="" loading="lazy"><span>유럽식 타운하우스</span></button><button type="button" class="chip-sample" data-id="tower"><img src="../samples/tower/before.jpg" alt="" loading="lazy"><span>고층 타워 (Hearst Tower 모델)</span></button><button type="button" class="chip-sample" data-id="twin-houses"><img src="../samples/twin-houses/before.jpg" alt="" loading="lazy"><span>대지 위 두 채의 주택</span></button><button type="button" class="chip-sample" data-id="housing-blocks"><img src="../samples/housing-blocks/before.jpg" alt="" loading="lazy"><span>공동주택 두 동</span></button><button type="button" class="chip-sample" data-id="long-house"><img src="../samples/long-house/before.jpg" alt="" loading="lazy"><span>단층 장옥</span></button><button type="button" class="chip-sample" data-id="walls"><img src="../samples/walls/before.jpg" alt="" loading="lazy"><span>벽체 매스</span></button></div></div>
+    </div>
     <div class="toolgrid">
       <div id="pd-view" class="view single" hidden><div class="pane"></div><div class="pane" hidden></div></div>
       <div id="pd-check" class="check" hidden>
         <span id="pd-badge" class="badge-state" hidden></span>
         <h3>결함</h3><ul class="def"></ul>
-        <h3>형상</h3><ul class="geo"></ul>
-        <p class="note">점검은 브라우저 안에서 합니다. 파일은 고치기를 누를 때만 올라갑니다.</p>
+        <h3>출력 크기 기준</h3><ul class="geo"></ul>
+        <p class="note">점검은 브라우저 안에서 합니다. 파일은 버튼을 누를 때만 올라갑니다.</p>
       </div>
     </div>
-    <div class="row">
-      <input id="pd-req" maxlength="500" placeholder="요청 (선택): 예) 얇은 난간은 지우고 간판 글자는 남겨줘">
-      <label class="scale">배율 <input id="pd-scale" type="number" value="1" step="any" min="0.001"></label>
+    <div id="pd-skp" class="skpnote" hidden></div>
+    <div class="opts">
+      <div class="opt">
+        <span class="optl">출력 축척</span>
+        <div class="chips" id="pd-presets"><button type="button" class="chip" data-n="50">1:50</button><button type="button" class="chip on" data-n="100">1:100</button><button type="button" class="chip" data-n="200">1:200</button><button type="button" class="chip" data-n="300">1:300</button><button type="button" class="chip" data-n="500">1:500</button><button type="button" class="chip" data-n="1000">1:1000</button><button type="button" class="chip" data-n="1">그대로</button>
+          <label class="chip custom">직접 1:<input id="pd-n" type="number" min="1" max="100000" step="1" inputmode="numeric"></label></div>
+        <span id="pd-size" class="psize"></span>
+      </div>
+      <input id="pd-req" maxlength="500" placeholder="에이전트에게 요청 (선택): 예) 난간은 지우고 간판 글자는 남겨줘">
     </div>
     <label class="consent"><input id="pd-consent" type="checkbox"> <span><a href="../privacy.html#ko">개인정보처리방침</a>과 <a href="../terms.html#ko">이용약관</a>에 동의합니다. 공유 권한이 있는 모델만 올려 주세요.</span></label>
-    <div class="row act"><button id="pd-send" class="primary" type="button">고치기</button><span id="pd-status" class="status"></span></div>
+    <div class="row act"><button id="pd-send" class="primary" type="button">변환하고 고치기</button><span id="pd-status" class="status"></span></div>
+    <div id="pd-prog" class="prog" hidden><i></i></div>
     <pre id="pd-log" class="log"></pre>
     <div id="pd-files" class="files"></div>
     <p id="pd-info" class="note"></p>
   </section>
+
+  <div class="pills"><span class="pill">무료 베타</span><span class="pill">가입 없음</span><span class="pill">.skp · STL · OBJ · 3MF · GLB</span><span class="pill">24시간 뒤 파일 삭제</span></div>
+
+  <section class="stats-band">
+    <h2 class="sr">공개 SketchUp 모델로 잰 결과</h2>
+    <p class="kicker">공개 SketchUp 모델로 잰 결과</p>
+    <div class="stats"><div class="stat"><b>6</b><span>공개 SKP 모델</span></div><div class="stat"><b>13,503</b><span>수정 전 엣지 오류</span></div><div class="stat"><b>0</b><span>수정 후</span></div><div class="stat"><b>0.33 mm</b><span>원본과 편차(중앙값)</span></div></div>
+  </section>
+
   <div class="ad" data-slot="top"></div>
 
-  <section>
-    <h2>예시: 깨진 모델 수정 전과 후</h2>
-    <p class="note">가운데 손잡이를 끌어 보세요. 같은 카메라, 같은 프레임입니다. 빨강은 열린·논매니폴드 엣지, 주황은 너무 얇아 출력되지 않는 부재입니다.</p>
-    <div class="ba">
-      <video class="before" src="../media/before.mp4" muted loop playsinline preload="auto"></video>
-      <video class="after" src="../media/after.mp4" muted loop playsinline preload="auto"></video>
-      <span class="tag" style="left:10px">BEFORE</span><span class="tag" style="right:10px">AFTER</span>
-      <div class="bar"></div>
-    </div>
+  <section id="samples" class="plain">
+    <div class="shead"><h2>실제 SketchUp 모델, 수정 전과 후</h2><p>SketchUp 도구 공개 저장소에 MIT 라이선스로 올라온 .skp 파일을 업로드와 똑같은 과정으로 처리했습니다. 빨간 선은 열린·논매니폴드 엣지입니다. 버튼을 누르거나 마우스를 올려 비교해 보세요.</p></div>
+    <div class="samples"><article class="sample" data-id="house">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="../samples/house/before.mp4" poster="../samples/house/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="../samples/house/after.mp4" poster="../samples/house/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">수정 전</button><button type="button" data-v="after">수정 후</button></div>
+    <span class="scale-tag">1:200</span>
+  </div>
+  <div class="sbody">
+    <h3>유럽식 타운하우스</h3>
+    <p class="snote">창호·발코니·지붕창이 각각 따로 노는 그룹</p>
+    <p class="sdim"><span>실제 26 × 20 × 27 m</span><span>출력 131 × 99 × 137 mm</span></p>
+    <ul class="sstats"><li><span>열린 엣지</span><b><s class="">738</s> → <em>0</em></b></li><li><span>논매니폴드</span><b><s class="">80</s> → <em>0</em></b></li><li><span>조각</span><b><s class="">146</s> → <em>1</em></b></li><li><span>얇은 부재 제거</span><b>6</b></li><li><span>편차 중앙값 / 95%</span><b>0.33 / 0.45 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="house">이 샘플로 해보기</button>
+      <a class="btn-sm" href="../samples/house/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/Eneroth3/eneroth-solid-tools" rel="noopener" target="_blank">출처: eneroth-solid-tools</a></div>
+  </div>
+</article><article class="sample" data-id="tower">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="../samples/tower/before.mp4" poster="../samples/tower/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="../samples/tower/after.mp4" poster="../samples/tower/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">수정 전</button><button type="button" data-v="after">수정 후</button></div>
+    <span class="scale-tag">1:1,000</span>
+  </div>
+  <div class="sbody">
+    <h3>고층 타워 (Hearst Tower 모델)</h3>
+    <p class="snote">다이아그리드 외피와 내부 층이 겹친 182 m 타워</p>
+    <p class="sdim"><span>실제 80 × 80 × 183 m</span><span>출력 80 × 80 × 183 mm</span></p>
+    <ul class="sstats"><li><span>열린 엣지</span><b><s class="">386</s> → <em>0</em></b></li><li><span>논매니폴드</span><b><s class="">204</s> → <em>0</em></b></li><li><span>조각</span><b><s class="">66</s> → <em>1</em></b></li><li><span>얇은 부재 제거</span><b>10</b></li><li><span>편차 중앙값 / 95%</span><b>0.33 / 6.70 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="tower">이 샘플로 해보기</button>
+      <a class="btn-sm" href="../samples/tower/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/SketchUp/testup-2" rel="noopener" target="_blank">출처: testup-2</a></div>
+  </div>
+</article><article class="sample" data-id="twin-houses">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="../samples/twin-houses/before.mp4" poster="../samples/twin-houses/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="../samples/twin-houses/after.mp4" poster="../samples/twin-houses/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">수정 전</button><button type="button" data-v="after">수정 후</button></div>
+    <span class="scale-tag">1:400</span>
+  </div>
+  <div class="sbody">
+    <h3>대지 위 두 채의 주택</h3>
+    <p class="snote">대지 면 한 장 + 라벨이 붙은 주택 두 채</p>
+    <p class="sdim"><span>실제 57 × 38 × 26 m</span><span>출력 142 × 94 × 66 mm</span></p>
+    <ul class="sstats"><li><span>열린 엣지</span><b><s class="">1,012</s> → <em>0</em></b></li><li><span>논매니폴드</span><b><s class="">12</s> → <em>0</em></b></li><li><span>조각</span><b><s class="">128</s> → <em>1</em></b></li><li><span>얇은 부재 제거</span><b>8</b></li><li><span>편차 중앙값 / 95%</span><b>0.34 / 0.43 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="twin-houses">이 샘플로 해보기</button>
+      <a class="btn-sm" href="../samples/twin-houses/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/Eneroth3/eneroth-solid-tools" rel="noopener" target="_blank">출처: eneroth-solid-tools</a></div>
+  </div>
+</article><article class="sample" data-id="housing-blocks">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="../samples/housing-blocks/before.mp4" poster="../samples/housing-blocks/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="../samples/housing-blocks/after.mp4" poster="../samples/housing-blocks/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">수정 전</button><button type="button" data-v="after">수정 후</button></div>
+    <span class="scale-tag">1:30</span>
+  </div>
+  <div class="sbody">
+    <h3>공동주택 두 동</h3>
+    <p class="snote">층마다 따로 그린 슬래브·벽, 단위가 작게 그려진 모델</p>
+    <p class="sdim"><span>실제 4 × 5 × 3 m</span><span>출력 127 × 161 × 105 mm</span></p>
+    <ul class="sstats"><li><span>열린 엣지</span><b><s class="">9,436</s> → <em>0</em></b></li><li><span>논매니폴드</span><b><s class="">1,463</s> → <em>0</em></b></li><li><span>조각</span><b><s class="">1,207</s> → <em>1</em></b></li><li><span>얇은 부재 제거</span><b>32</b></li><li><span>편차 중앙값 / 95%</span><b>0.42 / 0.61 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="housing-blocks">이 샘플로 해보기</button>
+      <a class="btn-sm" href="../samples/housing-blocks/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/iamahsanmehmood/openskp" rel="noopener" target="_blank">출처: openskp</a></div>
+  </div>
+</article><article class="sample" data-id="long-house">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="../samples/long-house/before.mp4" poster="../samples/long-house/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="../samples/long-house/after.mp4" poster="../samples/long-house/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">수정 전</button><button type="button" data-v="after">수정 후</button></div>
+    <span class="scale-tag">1:400</span>
+  </div>
+  <div class="sbody">
+    <h3>단층 장옥</h3>
+    <p class="snote">솔리드 그룹이 서로 떨어져 있는 모델</p>
+    <p class="sdim"><span>실제 60 × 29 × 12 m</span><span>출력 149 × 71 × 29 mm</span></p>
+    <ul class="sstats"><li><span>열린 엣지</span><b><s class="">50</s> → <em>0</em></b></li><li><span>논매니폴드</span><b><s class="">65</s> → <em>0</em></b></li><li><span>조각</span><b><s class="">79</s> → <em>1</em></b></li><li><span>얇은 부재 제거</span><b>7</b></li><li><span>편차 중앙값 / 95%</span><b>0.35 / 7.21 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="long-house">이 샘플로 해보기</button>
+      <a class="btn-sm" href="../samples/long-house/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/thomthom/solid-inspector" rel="noopener" target="_blank">출처: solid-inspector</a></div>
+  </div>
+</article><article class="sample" data-id="walls">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="../samples/walls/before.mp4" poster="../samples/walls/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="../samples/walls/after.mp4" poster="../samples/walls/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">수정 전</button><button type="button" data-v="after">수정 후</button></div>
+    <span class="scale-tag">1:250</span>
+  </div>
+  <div class="sbody">
+    <h3>벽체 매스</h3>
+    <p class="snote">벽 그룹들이 모서리에서만 맞닿음</p>
+    <p class="sdim"><span>실제 37 × 17 × 12 m</span><span>출력 149 × 70 × 48 mm</span></p>
+    <ul class="sstats"><li><span>열린 엣지</span><b><s class="z">0</s> → <em>0</em></b></li><li><span>논매니폴드</span><b><s class="">57</s> → <em>0</em></b></li><li><span>조각</span><b><s class="">10</s> → <em>1</em></b></li><li><span>편차 중앙값 / 95%</span><b>0.31 / 0.42 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="walls">이 샘플로 해보기</button>
+      <a class="btn-sm" href="../samples/walls/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/thomthom/solid-inspector" rel="noopener" target="_blank">출처: solid-inspector</a></div>
+  </div>
+</article></div>
+    <p class="credits">샘플 모델: SketchUp/testup-2 (Trimble Inc.), thomthom/solid-inspector, Eneroth3/eneroth-solid-tools, iamahsanmehmood/openskp의 MIT 라이선스 테스트 파일.</p>
   </section>
 
-  <section id="how">
-    <h2>작동 방식</h2>
-    <div class="cards three"><div class="card"><span class="num">1</span><h3>파일 놓기</h3><p>STL, OBJ, PLY, GLB, 3MF, OFF. 먼저 브라우저에서 구멍, 논매니폴드 엣지, 뒤집힌 면, 조각 수, 크기를 점검합니다.</p></div><div class="card"><span class="num">2</span><h3>고치기</h3><p>서버가 겉모양을 유지한 닫힌 솔리드로 다시 만들고, 노즐보다 얇은 부재를 정리한 뒤 결과를 검증합니다. 요청 문장을 쓰면 에이전트가 그대로 따릅니다.</p></div><div class="card"><span class="num">3</span><h3>확인하고 내려받기</h3><p>수정 전과 후를 나란히 3D로 돌려 보고, 출력 가능한 STL을 내려받습니다.</p></div></div>
+  <section id="how" class="plain">
+    <div class="shead"><h2>작동 방식</h2><p>SketchUp 파일이 슬라이서에 들어가기 전에 필요한 일을 한 번에 처리합니다.</p></div>
+    <div class="steps"><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg></div><span class="num">1</span><h3>.skp 올리기</h3><p>직접 STL·OBJ로 내보내 올려도 됩니다. SketchUp 파일은 공식 SketchUp SDK로, 다른 파일에 접근할 수 없는 저권한 격리 프로세스에서 엽니다. 숨긴 태그와 숨긴 객체는 빠집니다.</p></div><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></div><span class="num">2</span><h3>출력 축척 기준으로 진단</h3><p>열린 면, 면 셋 이상이 공유하는 엣지, 뒤집힌 면, 겹친 그룹, 흩어진 조각, 그리고 1:N으로 줄였을 때 노즐보다 얇아지는 부재를 찾습니다.</p></div><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></div><span class="num">3</span><h3>하나의 닫힌 솔리드로 재구성</h3><p>바깥 표면을 유지한 채 물이 새지 않는 하나의 솔리드로 다시 만듭니다. 출력이 안 되는 독립된 얇은 부재는 지우고, 벽에 붙은 양각은 남깁니다.</p></div><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span class="num">4</span><h3>검증하고 내려받기</h3><p>열린 엣지와 논매니폴드 엣지가 모두 0이어야 통과입니다. 원본과의 편차를 재서 보여 주고, 슬라이서에 바로 넣을 STL을 드립니다.</p></div></div>
   </section>
 
-  <section>
-    <h2>출력을 망치는 오류와 처리 방법</h2>
-    <p class="note">아래 오류가 있으면 슬라이서가 벽을 빠뜨리거나, 안팎을 바꿔 채우거나, 층을 건너뜁니다.</p>
-    <div class="cards errs"><div class="card"><span class="num">01</span><h3>열린 엣지(구멍)</h3><dl><dt>무엇</dt><dd>면 하나에만 붙은 엣지, 표면이 닫히지 않은 상태입니다.</dd><dt>슬라이서에서</dt><dd>안과 밖을 구분하지 못해 벽과 바닥이 빠집니다.</dd><dt>printdoctor는</dt><dd>닫힌 솔리드로 다시 만들고 주변 면을 따라 구멍을 메웁니다.</dd></dl></div><div class="card"><span class="num">02</span><h3>논매니폴드 엣지</h3><dl><dt>무엇</dt><dd>면 셋 이상이 함께 쓰는 엣지. 용접되지 않은 CAD·건축 모델에서 흔합니다.</dd><dt>슬라이서에서</dt><dd>단면이 모호해져 층의 일부가 비어 나옵니다.</dd><dt>printdoctor는</dt><dd>겹치거나 맞닿은 조각을 하나의 솔리드, 하나의 깨끗한 표면으로 합칩니다.</dd></dl></div><div class="card"><span class="num">03</span><h3>뒤집힌 면</h3><dl><dt>무엇</dt><dd>이웃한 면의 감김 방향이 서로 반대인 상태입니다.</dd><dt>슬라이서에서</dt><dd>모델 일부가 뒤집힌 것으로 처리됩니다.</dd><dt>printdoctor는</dt><dd>다시 만든 표면은 모두 바깥쪽으로 일관되게 향합니다.</dd></dl></div><div class="card"><span class="num">04</span><h3>넓이 0인 면</h3><dl><dt>무엇</dt><dd>선이나 점으로 찌그러진 삼각형입니다.</dd><dt>슬라이서에서</dt><dd>슬라이서 경고, 미세한 틈, 불리언 실패의 원인이 됩니다.</dd><dt>printdoctor는</dt><dd>재구성 과정에서 없어집니다.</dd></dl></div><div class="card"><span class="num">05</span><h3>흩어진 조각</h3><dl><dt>무엇</dt><dd>창틀, 패널, 글자처럼 따로 노는 수백 개의 조각입니다.</dd><dt>슬라이서에서</dt><dd>떠 있는 조각은 실처럼 나오거나 떨어지고, 겹친 곳은 벽이 두 겹이 됩니다.</dd><dt>printdoctor는</dt><dd>조각을 한 몸으로 합치고, 노즐보다 작은 부스러기는 버립니다.</dd></dl></div><div class="card"><span class="num">06</span><h3>노즐보다 얇은 부재</h3><dl><dt>무엇</dt><dd>약 0.45 mm보다 가는 난간, 봉, 안테나입니다.</dd><dt>슬라이서에서</dt><dd>끊어진 실처럼 나오거나 아예 나오지 않습니다.</dd><dt>printdoctor는</dt><dd>찾아서 지우되, 표면에 붙은 글자·무늬 같은 양각은 남깁니다.</dd></dl></div></div>
+  <section class="plain">
+    <div class="shead"><h2>SketchUp 모델이 출력에서 깨지는 이유</h2><p>SketchUp은 면으로 그리는 프로그램이라, 화면에서는 꽉 차 보여도 실제로는 따로 노는 면들의 모음인 경우가 많습니다. 슬라이서가 건물을 거부하는 흔한 원인입니다.</p></div>
+    <div class="ecards"><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V6l8-3 8 3v14"/><path d="M4 20h16"/></svg></div><h3>한 겹짜리 벽</h3><p>면 하나로 그린 벽은 두께가 없습니다. 슬라이서는 벽이 아니라 구멍으로 봅니다.</p><p class="fix"><b>해결</b> 입면 안쪽으로 살을 채워 벽을 다시 만듭니다.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="9" height="9" rx="1"/><rect x="12" y="10" width="9" height="9" rx="1"/></svg></div><h3>맞닿기만 한 그룹</h3><p>그룹·컴포넌트는 각자 따로인 껍질입니다. 만나는 곳의 엣지를 면 셋 이상이 공유해 논매니폴드가 됩니다.</p><p class="fix"><b>해결</b> 맞닿거나 겹친 그룹을 한 몸으로 합칩니다.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15h18M7 15V7h10v8"/><path d="M10 15v6M14 15v6" stroke-dasharray="2 2"/></svg></div><h3>겹치고 파고든 형상</h3><p>벽을 뚫고 나온 슬래브, 박공을 뚫은 지붕. 이중 벽과 내부 면이 슬라이서를 헷갈리게 합니다.</p><p class="fix"><b>해결</b> 내부 면은 사라지고 바깥 껍질만 남습니다.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V8M9 20V8M13 20V8M17 20V8M3 8h18"/></svg></div><h3>축척에서 너무 얇아지는 부재</h3><p>50 mm 난간은 1:200에서 0.25 mm가 됩니다. 출력도 안 되면서 모델이 한 덩어리가 되는 것을 막습니다.</p><p class="fix"><b>해결</b> 떠 있는 얇은 부재는 지우고 목록으로 보여 줍니다. 벽면 위의 것은 건드리지 않습니다.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></div><h3>뒤집힌 면</h3><p>회색 뒷면이 바깥을 보고 있는 상태. 일부 슬라이서는 반대쪽을 채웁니다.</p><p class="fix"><b>해결</b> 다시 만든 표면은 모두 바깥을 향합니다.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 14-14 4 4L7 21l-4-4Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></svg></div><h3>단위 실수와 잔여 형상</h3><p>잘못된 단위로 그린 모델, 남은 짧은 선, 2D 사람·나무.</p><p class="fix"><b>해결</b> 축척 프리셋과 출력 크기 미리보기, 노즐보다 작은 부스러기 제거로 정리합니다.</p></div></div>
   </section>
 
   <div class="ad" data-slot="middle"></div>
 
-  <section>
-    <h2>printdoctor가 다른 점</h2>
-    <div class="cards four"><div class="card"><h3>겉모양 유지</h3><p>결과를 원본과 비교해 편차(중앙값·95%)를 로그에 남깁니다.</p></div><div class="card"><h3>지저분한 내보내기에 강함</h3><p>용접 안 된 조각 수천 개짜리 SketchUp·Revit 모델, 게임·AI 생성 메시를 처리합니다.</p></div><div class="card"><h3>얇은 것을 구분</h3><p>출력이 안 되는 난간과 출력되는 글자·양각을 구분합니다.</p></div><div class="card"><h3>슬라이서 기준으로 검증</h3><p>열린·논매니폴드 엣지가 0이어야 출력 가능이라고 표시합니다.</p></div></div>
+  <section id="scale">
+    <div class="shead"><h2>축척 가이드: 1:N에서 무엇이 남나</h2><p>FDM 노즐은 벽 약 0.8 mm, 독립된 디테일 약 0.45 mm까지 출력합니다. 축척마다 실제로 몇 mm 두께가 그만큼 작아지는지 보여 줍니다.</p></div>
+    <div class="scalegrid">
+      <div class="tbl"><table class="stable"><tr><th>축척</th><th>최소 벽 두께 (출력 0.8 mm)</th><th>최소 독립 디테일 (0.45 mm)</th><th>10 m 입면의 출력 크기</th></tr><tr><td><b>1:50</b></td><td>40 mm</td><td>22 mm</td><td>200 mm</td></tr><tr><td><b>1:100</b></td><td>80 mm</td><td>45 mm</td><td>100 mm</td></tr><tr><td><b>1:200</b></td><td>160 mm</td><td>90 mm</td><td>50 mm</td></tr><tr><td><b>1:300</b></td><td>240 mm</td><td>135 mm</td><td>33 mm</td></tr><tr><td><b>1:500</b></td><td>400 mm</td><td>225 mm</td><td>20 mm</td></tr><tr><td><b>1:1,000</b></td><td>800 mm</td><td>450 mm</td><td>10 mm</td></tr></table></div>
+      <div class="calc" data-msgs="[&quot;출력됩니다&quot;, &quot;얇은 벽으로 나옵니다. 0.8 mm 이상이 안전합니다&quot;, &quot;노즐보다 얇음: 독립 부재라면 제거됩니다&quot;]">
+        <h3>부재 하나 확인하기</h3>
+        <label>실제 두께 (mm) <input id="c-real" type="number" value="50" min="0" step="any"></label>
+        <label>축척 1: <input id="c-n" type="number" value="200" min="1" step="1"></label>
+        <div class="cout"><span>출력 두께</span><b id="c-out">0.25 mm</b></div>
+        <div class="cbar"><i id="c-bar"></i><span class="m1"></span><span class="m2"></span></div>
+        <p id="c-msg" class="cmsg"></p>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>다른 방법과 비교</h2>
-    <div class="tbl"><table><tr><th></th><th>직접 수리 (Blender, Meshmixer)</th><th>원클릭 구멍 메우기</th><th>printdoctor</th></tr><tr><td class="">시간</td><td class="">30분~몇 시간</td><td class="">몇 초</td><td class="good">1분 안팎</td></tr><tr><td class="">필요한 기술</td><td class="">메시 모델링</td><td class="">없음</td><td class="good">없음</td></tr><tr><td class="">조각 수천 개</td><td class="">손이 많이 감</td><td class="">가장 큰 조각만 남기기 쉬움</td><td class="good">하나의 솔리드로 합침</td></tr><tr><td class="">얇은 부재</td><td class="">눈으로 판단</td><td class="">무시</td><td class="good">찾아서 정리</td></tr><tr><td class="">원본과의 편차</td><td class="">측정 안 함</td><td class="">측정 안 함</td><td class="good">수치로 보고</td></tr><tr><td class="">비용</td><td class="">작업 시간</td><td class="">무료~유료</td><td class="good">무료 (베타)</td></tr></table></div>
+  <section class="plain">
+    <div class="shead"><h2>다른 방법과 비교</h2></div>
+    <div class="tbl"><table class="ctable"><tr><th></th><th>SketchUp에서 직접 정리</th><th>일반 STL 수리 사이트</th><th>printdoctor</th></tr><tr><td class="">.skp 바로 열기</td><td class="">가능</td><td class="">불가 (먼저 내보내기)</td><td class="good">가능</td></tr><tr><td class="">그룹·컴포넌트</td><td class="">분해·교차·정리를 손으로</td><td class="">가장 큰 조각만 남기기 쉬움</td><td class="good">하나의 솔리드로 합침</td></tr><tr><td class="">축척 기준 얇은 부재</td><td class="">눈으로 판단</td><td class="">무시</td><td class="good">고른 1:N 기준으로 찾아 정리</td></tr><tr><td class="">원본과의 편차</td><td class="">측정 안 함</td><td class="">측정 안 함</td><td class="good">수치로 보고</td></tr><tr><td class="">건물 하나 처리 시간</td><td class="">몇 시간</td><td class="">몇 분, 실패 잦음</td><td class="good">1~4분</td></tr><tr><td class="">비용</td><td class="">작업 시간</td><td class="">무료~유료</td><td class="good">무료 (베타)</td></tr></table></div>
   </section>
 
-  <section>
-    <h2>이럴 때 쓰세요</h2>
-    <div class="cards four"><div class="card"><h3>건축 모형</h3><p>축소 모형용 SketchUp·Revit 내보내기</p></div><div class="card"><h3>AI 생성·게임 메시</h3><p>열리고, 서로 파고들고, 조각이 많은 메시</p></div><div class="card"><h3>3D 스캔</h3><p>사진측량·스캐너에서 생긴 구멍과 잡음</p></div><div class="card"><h3>내려받은 모델</h3><p>슬라이스하면 오류가 나거나 층이 빠지는 파일</p></div></div>
+  <section class="plain">
+    <div class="shead"><h2>이런 분들을 위해</h2></div>
+    <div class="uses"><div class="use"><h3>설계 사무소</h3><p>작업 중인 SketchUp 파일에서 바로 매스·프레젠테이션 모형을.</p></div><div class="use"><h3>공모전·스튜디오</h3><p>정리하느라 하루를 쓰지 않고 심사·크리틱용 실물 모형을.</p></div><div class="use"><h3>건축학과 학생</h3><p>마감 직전, 메시 수리할 시간이 없을 때 졸업·설계 모형을.</p></div><div class="use"><h3>시행·분양</h3><p>설명회용 대지·블록 모형을 사내 프린터로.</p></div></div>
   </section>
 
-  <section id="faq">
-    <h2>자주 묻는 질문</h2>
-    <details><summary>STL을 온라인에서 어떻게 고치나요?</summary><p>위 도구에 파일을 놓으세요. 무료 점검으로 문제를 보여 주고, 고치기를 누르면 1분 안팎에 결과를 내려받을 수 있습니다.</p></details><details><summary>어떤 형식을 올릴 수 있나요?</summary><p>STL, OBJ, PLY, GLB/GLTF, 3MF, OFF를 50 MB까지 받습니다. 결과는 STL입니다.</p></details><details><summary>모양이 바뀌나요?</summary><p>25 cm 이하 모델은 약 0.2 mm 해상도로 표면을 다시 만들기 때문에 그보다 작은 디테일은 부드러워집니다. 원본과의 편차를 재서 보여 드립니다.</p></details><details><summary>요청 칸은 무엇인가요?</summary><p>요청을 쓰면 에이전트가 수리 단계를 정합니다. 예를 들어 난간은 지우고 글자는 남깁니다. 에이전트 처리는 하루 한도가 있고, 요청이 없으면 자동 수리가 돌아갑니다.</p></details><details><summary>무료인가요? 결과를 상업적으로 써도 되나요?</summary><p>베타는 광고로 운영되는 무료 서비스이고, 모델과 결과의 권리는 모두 이용자에게 있습니다.</p></details><details><summary>내 파일은 누가 보나요?</summary><p>처리하는 서버만 봅니다. 파일과 결과는 24시간 뒤 자동 삭제됩니다. 자세한 내용은 개인정보처리방침을 보세요.</p></details><details><summary>모델 단위가 cm나 인치예요</summary><p>배율을 넣으세요. cm는 10, 인치는 25.4를 넣으면 mm가 됩니다.</p></details>
+  <section id="faq" class="plain">
+    <div class="shead"><h2>자주 묻는 질문</h2></div>
+    <div class="faq"><details><summary>어떤 SketchUp 버전을 지원하나요?</summary><p>SketchUp 2017 이후에 저장한 파일은 그대로 열립니다. 거부되면 최신 SketchUp에서 다시 저장하거나 STL로 내보내 올려 주세요 (파일 &gt; 내보내기 &gt; 3D 모델).</p></details><details><summary>숨긴 태그·레이어·객체는 어떻게 되나요?</summary><p>숨긴 객체와 숨긴 태그의 객체는 SketchUp 화면과 똑같이 빠집니다. 사람·나무·가구를 출력하지 않으려면 숨긴 뒤 올리세요.</p></details><details><summary>축척은 무엇을 고르나요?</summary><p>실제로 출력할 1:N을 고르세요. 먼저 줄인 뒤 점검하기 때문에 그 축척에서 너무 얇아지는 부재를 찾아냅니다. 올리기 전에 출력 크기를 보여 드립니다.</p></details><details><summary>.skp 파일은 안전하게 처리되나요?</summary><p>SketchUp 파일은 처리용 PC에서 다른 파일에 접근할 수 없는 저권한 격리 프로세스로 열고, 메모리와 시간에 상한을 둡니다. 모든 파일은 24시간 뒤 삭제됩니다.</p></details><details><summary>모양이 바뀌나요?</summary><p>표면을 약 0.2 mm 해상도로 다시 만들기 때문에 그보다 작은 디테일은 부드러워집니다. 원본과의 편차(중앙값·95%)를 작업마다 보여 드립니다.</p></details><details><summary>요청 칸은 무엇인가요?</summary><p>문장을 쓰면 에이전트가 수리 계획을 세웁니다. 예를 들어 난간은 지우고 글자는 남깁니다. 에이전트 처리는 하루 한도가 있고, 요청이 없으면 자동 수리가 돌아갑니다.</p></details><details><summary>무료인가요? 결과를 상업적으로 써도 되나요?</summary><p>네. 베타는 광고로 운영되는 무료 서비스이고, 모델과 결과의 권리는 모두 이용자에게 있습니다.</p></details><details><summary>소스 코드는 공개되나요?</summary><p>아직은 아닙니다. 처리 코드와 자체 예시 모델은 추후 공개할 예정이고, 지금은 이 페이지에서 서비스로 사용하실 수 있습니다.</p></details></div>
   </section>
 
-  <section class="cta"><h2>출력할 준비 되셨나요?</h2><a class="btn primary-btn" href="#tool">모델 고치기</a></section>
+  <section class="cta"><h2>오늘 그 건물을 출력 베드 위에</h2><a class="primary-btn" href="#tool">SketchUp 파일 변환하기</a></section>
   <div class="ad" data-slot="bottom"></div>
-  <footer>printdoctor · <a href="../privacy.html#ko">개인정보처리방침</a> · <a href="../terms.html#ko">이용약관</a> ·
-    <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">문의</a></footer>
 </main>
-<script src="../assets/site.js"></script>
+<footer class="foot"><div class="wrap">
+  <span class="brand"><span class="logo"></span>printdoctor</span>
+  <span><a href="../privacy.html#ko">개인정보처리방침</a> · <a href="../terms.html#ko">이용약관</a> ·
+    <a href="https://github.com/JaekunE2/JaekunE2.github.io">GitHub</a> · <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">문의</a></span>
+</div></footer>
 <script src="../assets/config.js"></script>
+<script src="../assets/site.js"></script>
 <script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module" src="../assets/app.js"></script>

@@ -3,10 +3,12 @@
   const c = window.PD_CONFIG || {};
   const slots = document.querySelectorAll(".ad[data-slot]");
   if (!c.ADSENSE_CLIENT) { slots.forEach(s => s.remove()); return; }
-  const s = document.createElement("script");
-  s.async = true; s.crossOrigin = "anonymous";
-  s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(c.ADSENSE_CLIENT);
-  document.head.appendChild(s);
+  if (!document.querySelector('script[src*="adsbygoogle.js"]')) {      // the pages include it in <head>
+    const s = document.createElement("script");
+    s.async = true; s.crossOrigin = "anonymous";
+    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(c.ADSENSE_CLIENT);
+    document.head.appendChild(s);
+  }
   slots.forEach(el => {
     const id = (c.ADSENSE_SLOTS || {})[el.dataset.slot];
     if (!id) { el.remove(); return; }

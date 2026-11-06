@@ -3,99 +3,235 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>printdoctor · Free STL repair for 3D printing</title>
-<meta name="description" content="Check an STL, OBJ, GLB or 3MF in your browser for holes, non-manifold edges and loose shells, then repair it into a watertight, printable solid. Free, no sign-up.">
+<title>printdoctor · SketchUp to 3D print for architectural models</title>
+<meta name="description" content="Upload a SketchUp .skp (or STL/OBJ/3MF) of a building and get a watertight, printable scale model: open faces, non-manifold edges, overlapping groups and parts too thin at your scale are fixed automatically. Free beta.">
+<meta property="og:title" content="printdoctor · SketchUp to 3D print for architectural models">
+<meta property="og:description" content="Upload a SketchUp .skp (or STL/OBJ/3MF) of a building and get a watertight, printable scale model: open faces, non-manifold edges, overlapping groups and parts too thin at your scale are fixed automatically. Free beta.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jaekune2.github.io/samples/house/after.jpg">
 <link rel="alternate" hreflang="en" href="https://jaekune2.github.io/"><link rel="alternate" hreflang="ko" href="https://jaekune2.github.io/ko/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e2531f'/%3E%3Cpath d='M8 23V13l8-5 8 5v10z' fill='none' stroke='white' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "printdoctor", "url": "https://jaekune2.github.io/", "applicationCategory": "DesignApplication", "operatingSystem": "Web", "description": "Upload a SketchUp .skp (or STL/OBJ/3MF) of a building and get a watertight, printable scale model: open faces, non-manifold edges, overlapping groups and parts too thin at your scale are fixed automatically. Free beta.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which SketchUp versions are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Files saved by SketchUp 2017 or newer open directly. If a file is rejected, save it again from a recent SketchUp, or export STL (File > Export > 3D Model)."}}, {"@type": "Question", "name": "What happens to hidden tags, layers and objects?", "acceptedAnswer": {"@type": "Answer", "text": "Hidden objects and objects on hidden tags are skipped, exactly as in the SketchUp view. Hide people, trees and furniture before uploading if you do not want them printed."}}, {"@type": "Question", "name": "Which scale should I choose?", "acceptedAnswer": {"@type": "Answer", "text": "Pick the 1:N you will print at. The model is shrunk first, then checked, so anything that is too thin at that scale is found. The tool shows the print size before you upload."}}, {"@type": "Question", "name": "Is the .skp file safe on your side?", "acceptedAnswer": {"@type": "Answer", "text": "SketchUp files are opened on our processing PC in an isolated low-integrity process with no access to other files, a memory cap and a time limit. All files are deleted after 24 hours."}}, {"@type": "Question", "name": "Does the shape change?", "acceptedAnswer": {"@type": "Answer", "text": "The surface is rebuilt at about 0.2 mm, so detail finer than that softens. The median and 95th-percentile deviation from your model are reported for every job."}}, {"@type": "Question", "name": "What does the request box do?", "acceptedAnswer": {"@type": "Answer", "text": "With a sentence, an agent plans the repair, for example removing railings but keeping lettering. Agent jobs have a daily limit; without a request the automatic pipeline runs."}}, {"@type": "Question", "name": "Is it free? Can I use the results commercially?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The beta is free and supported by ads, and you keep all rights to your models and to the results."}}, {"@type": "Question", "name": "Is the source code available?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet. The processing code and our own example models will be published later; for now the service is used through this page."}}]}</script>
+<meta name="google-adsense-account" content="ca-pub-5502039335259677">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502039335259677" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="topbar"><nav class="wrap">
-  <a class="brand" href="./"><span class="logo"></span>printdoctor</a>
-  <span class="links"><a href="#tool">Tool</a><a href="#how">How it works</a><a href="#faq">FAQ</a></span>
+  <a class="brand" href="./"><span class="logo"></span>printdoctor<small>for SketchUp</small></a>
+  <span class="links"><a href="#tool">Convert</a><a href="#samples">Samples</a><a href="#how">How it works</a><a href="#scale">Scale guide</a><a href="#faq">FAQ</a></span>
   <span class="lang"><a href="./" aria-current="page">EN</a><a href="ko/" >한국어</a></span>
 </nav></div>
-<main class="wrap">
-  <header class="hero">
-    <h1>Repair STL files for 3D printing</h1>
-    <p>Drop a model for a free check in your browser, then fix it in one click. The outside stays, the errors go: holes, non-manifold edges, flipped faces, loose pieces and parts too thin to print.</p>
-    <div class="pills"><span class="pill">Free beta</span><span class="pill">No sign-up</span><span class="pill">Files deleted after 24 h</span></div>
-  </header>
 
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">SketchUp → 3D print</span>
+    <h1>Turn SketchUp buildings into<br><span class="grad">print-ready scale models</span></h1>
+    <p class="lead">Drop a .skp straight from SketchUp. We convert it in a sandbox, find what will break the print at your scale and rebuild it as one closed solid that keeps the facade. Free, no sign-up.</p>
+    <div class="flow"><span>SKP</span><i class="arr"></i><span>Sandboxed conversion</span><i class="arr"></i><span>Diagnosis at scale</span><i class="arr"></i><span>Solid rebuild</span><i class="arr"></i><span>STL</span></div>
+  </div>
+</header>
+
+<main class="wrap">
   <section id="tool" class="tool">
-    <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden accept=".stl,.obj,.ply,.off,.glb,.gltf,.3mf">
-      <span class="ico"></span><b></b><small></small></label>
+    <div class="toolhead">
+      <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden accept=".skp,.stl,.obj,.ply,.off,.glb,.gltf,.3mf">
+        <span class="ico"></span><b>Drop a .skp or STL here, or click to choose</b><small>SketchUp 2017 or newer · STL · OBJ · PLY · GLB · 3MF · up to 50 MB</small></label>
+      <div class="tryrow"><span>No file at hand? Try an open sample:</span><div class="chips-s"><button type="button" class="chip-sample" data-id="house"><img src="samples/house/before.jpg" alt="" loading="lazy"><span>Townhouse</span></button><button type="button" class="chip-sample" data-id="tower"><img src="samples/tower/before.jpg" alt="" loading="lazy"><span>High-rise tower (Hearst Tower model)</span></button><button type="button" class="chip-sample" data-id="twin-houses"><img src="samples/twin-houses/before.jpg" alt="" loading="lazy"><span>Two houses on a site</span></button><button type="button" class="chip-sample" data-id="housing-blocks"><img src="samples/housing-blocks/before.jpg" alt="" loading="lazy"><span>Two housing blocks</span></button><button type="button" class="chip-sample" data-id="long-house"><img src="samples/long-house/before.jpg" alt="" loading="lazy"><span>Long single-storey house</span></button><button type="button" class="chip-sample" data-id="walls"><img src="samples/walls/before.jpg" alt="" loading="lazy"><span>Walls-only massing</span></button></div></div>
+    </div>
     <div class="toolgrid">
       <div id="pd-view" class="view single" hidden><div class="pane"></div><div class="pane" hidden></div></div>
       <div id="pd-check" class="check" hidden>
         <span id="pd-badge" class="badge-state" hidden></span>
         <h3>Defects</h3><ul class="def"></ul>
-        <h3>Geometry</h3><ul class="geo"></ul>
-        <p class="note">Checked in your browser. The file is uploaded only when you press Repair.</p>
+        <h3>At print scale</h3><ul class="geo"></ul>
+        <p class="note">Checked in your browser. The file is uploaded only when you press the button.</p>
       </div>
     </div>
-    <div class="row">
-      <input id="pd-req" maxlength="500" placeholder="Request (optional), e.g. remove the thin railings, keep the sign lettering">
-      <label class="scale">Scale <input id="pd-scale" type="number" value="1" step="any" min="0.001"></label>
+    <div id="pd-skp" class="skpnote" hidden></div>
+    <div class="opts">
+      <div class="opt">
+        <span class="optl">Print scale</span>
+        <div class="chips" id="pd-presets"><button type="button" class="chip" data-n="50">1:50</button><button type="button" class="chip on" data-n="100">1:100</button><button type="button" class="chip" data-n="200">1:200</button><button type="button" class="chip" data-n="300">1:300</button><button type="button" class="chip" data-n="500">1:500</button><button type="button" class="chip" data-n="1000">1:1000</button><button type="button" class="chip" data-n="1">As is</button>
+          <label class="chip custom">Custom 1:<input id="pd-n" type="number" min="1" max="100000" step="1" inputmode="numeric"></label></div>
+        <span id="pd-size" class="psize"></span>
+      </div>
+      <input id="pd-req" maxlength="500" placeholder="Request for the agent (optional), e.g. remove the railings, keep the sign lettering">
     </div>
     <label class="consent"><input id="pd-consent" type="checkbox"> <span>I agree to the <a href="privacy.html">privacy policy</a> and <a href="terms.html">terms</a>. Upload only models you may share.</span></label>
-    <div class="row act"><button id="pd-send" class="primary" type="button">Repair</button><span id="pd-status" class="status"></span></div>
+    <div class="row act"><button id="pd-send" class="primary" type="button">Convert &amp; repair</button><span id="pd-status" class="status"></span></div>
+    <div id="pd-prog" class="prog" hidden><i></i></div>
     <pre id="pd-log" class="log"></pre>
     <div id="pd-files" class="files"></div>
     <p id="pd-info" class="note"></p>
   </section>
+
+  <div class="pills"><span class="pill">Free beta</span><span class="pill">No sign-up</span><span class="pill">.skp · STL · OBJ · 3MF · GLB</span><span class="pill">Files deleted after 24 h</span></div>
+
+  <section class="stats-band">
+    <h2 class="sr">Measured on open SketchUp models</h2>
+    <p class="kicker">Measured on open SketchUp models</p>
+    <div class="stats"><div class="stat"><b>6</b><span>open SKP models</span></div><div class="stat"><b>13,503</b><span>edge errors before</span></div><div class="stat"><b>0</b><span>after</span></div><div class="stat"><b>0.33 mm</b><span>median deviation</span></div></div>
+  </section>
+
   <div class="ad" data-slot="top"></div>
 
-  <section>
-    <h2>Example: a broken model, before and after</h2>
-    <p class="note">Drag the handle. Same camera, frame by frame. Red: open and non-manifold edges; orange: parts too thin to print.</p>
-    <div class="ba">
-      <video class="before" src="media/before.mp4" muted loop playsinline preload="auto"></video>
-      <video class="after" src="media/after.mp4" muted loop playsinline preload="auto"></video>
-      <span class="tag" style="left:10px">BEFORE</span><span class="tag" style="right:10px">AFTER</span>
-      <div class="bar"></div>
-    </div>
+  <section id="samples" class="plain">
+    <div class="shead"><h2>Real SketchUp models, before and after</h2><p>Open-licensed (MIT) .skp files from public SketchUp tool repositories, run through the same pipeline as your uploads. Red: open and non-manifold edges. Toggle or hover to compare.</p></div>
+    <div class="samples"><article class="sample" data-id="house">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="samples/house/before.mp4" poster="samples/house/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="samples/house/after.mp4" poster="samples/house/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">Before</button><button type="button" data-v="after">After</button></div>
+    <span class="scale-tag">1:200</span>
+  </div>
+  <div class="sbody">
+    <h3>Townhouse</h3>
+    <p class="snote">windows, balconies and dormers as separate groups</p>
+    <p class="sdim"><span>Real 26 × 20 × 27 m</span><span>Print 131 × 99 × 137 mm</span></p>
+    <ul class="sstats"><li><span>open edges</span><b><s class="">738</s> → <em>0</em></b></li><li><span>non-manifold</span><b><s class="">80</s> → <em>0</em></b></li><li><span>pieces</span><b><s class="">146</s> → <em>1</em></b></li><li><span>too-thin parts removed</span><b>6</b></li><li><span>deviation median / 95%</span><b>0.33 / 0.45 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="house">Try this sample</button>
+      <a class="btn-sm" href="samples/house/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/Eneroth3/eneroth-solid-tools" rel="noopener" target="_blank">Source: eneroth-solid-tools</a></div>
+  </div>
+</article><article class="sample" data-id="tower">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="samples/tower/before.mp4" poster="samples/tower/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="samples/tower/after.mp4" poster="samples/tower/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">Before</button><button type="button" data-v="after">After</button></div>
+    <span class="scale-tag">1:1,000</span>
+  </div>
+  <div class="sbody">
+    <h3>High-rise tower (Hearst Tower model)</h3>
+    <p class="snote">182 m tower, diagrid skin overlapping the floors</p>
+    <p class="sdim"><span>Real 80 × 80 × 183 m</span><span>Print 80 × 80 × 183 mm</span></p>
+    <ul class="sstats"><li><span>open edges</span><b><s class="">386</s> → <em>0</em></b></li><li><span>non-manifold</span><b><s class="">204</s> → <em>0</em></b></li><li><span>pieces</span><b><s class="">66</s> → <em>1</em></b></li><li><span>too-thin parts removed</span><b>10</b></li><li><span>deviation median / 95%</span><b>0.33 / 6.70 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="tower">Try this sample</button>
+      <a class="btn-sm" href="samples/tower/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/SketchUp/testup-2" rel="noopener" target="_blank">Source: testup-2</a></div>
+  </div>
+</article><article class="sample" data-id="twin-houses">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="samples/twin-houses/before.mp4" poster="samples/twin-houses/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="samples/twin-houses/after.mp4" poster="samples/twin-houses/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">Before</button><button type="button" data-v="after">After</button></div>
+    <span class="scale-tag">1:400</span>
+  </div>
+  <div class="sbody">
+    <h3>Two houses on a site</h3>
+    <p class="snote">a one-face site plus two labelled houses</p>
+    <p class="sdim"><span>Real 57 × 38 × 26 m</span><span>Print 142 × 94 × 66 mm</span></p>
+    <ul class="sstats"><li><span>open edges</span><b><s class="">1,012</s> → <em>0</em></b></li><li><span>non-manifold</span><b><s class="">12</s> → <em>0</em></b></li><li><span>pieces</span><b><s class="">128</s> → <em>1</em></b></li><li><span>too-thin parts removed</span><b>8</b></li><li><span>deviation median / 95%</span><b>0.34 / 0.43 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="twin-houses">Try this sample</button>
+      <a class="btn-sm" href="samples/twin-houses/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/Eneroth3/eneroth-solid-tools" rel="noopener" target="_blank">Source: eneroth-solid-tools</a></div>
+  </div>
+</article><article class="sample" data-id="housing-blocks">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="samples/housing-blocks/before.mp4" poster="samples/housing-blocks/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="samples/housing-blocks/after.mp4" poster="samples/housing-blocks/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">Before</button><button type="button" data-v="after">After</button></div>
+    <span class="scale-tag">1:30</span>
+  </div>
+  <div class="sbody">
+    <h3>Two housing blocks</h3>
+    <p class="snote">slabs and walls per floor; drawn in the wrong unit</p>
+    <p class="sdim"><span>Real 4 × 5 × 3 m</span><span>Print 127 × 161 × 105 mm</span></p>
+    <ul class="sstats"><li><span>open edges</span><b><s class="">9,436</s> → <em>0</em></b></li><li><span>non-manifold</span><b><s class="">1,463</s> → <em>0</em></b></li><li><span>pieces</span><b><s class="">1,207</s> → <em>1</em></b></li><li><span>too-thin parts removed</span><b>32</b></li><li><span>deviation median / 95%</span><b>0.42 / 0.61 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="housing-blocks">Try this sample</button>
+      <a class="btn-sm" href="samples/housing-blocks/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/iamahsanmehmood/openskp" rel="noopener" target="_blank">Source: openskp</a></div>
+  </div>
+</article><article class="sample" data-id="long-house">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="samples/long-house/before.mp4" poster="samples/long-house/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="samples/long-house/after.mp4" poster="samples/long-house/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">Before</button><button type="button" data-v="after">After</button></div>
+    <span class="scale-tag">1:400</span>
+  </div>
+  <div class="sbody">
+    <h3>Long single-storey house</h3>
+    <p class="snote">solid groups that do not touch</p>
+    <p class="sdim"><span>Real 60 × 29 × 12 m</span><span>Print 149 × 71 × 29 mm</span></p>
+    <ul class="sstats"><li><span>open edges</span><b><s class="">50</s> → <em>0</em></b></li><li><span>non-manifold</span><b><s class="">65</s> → <em>0</em></b></li><li><span>pieces</span><b><s class="">79</s> → <em>1</em></b></li><li><span>too-thin parts removed</span><b>7</b></li><li><span>deviation median / 95%</span><b>0.35 / 7.21 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="long-house">Try this sample</button>
+      <a class="btn-sm" href="samples/long-house/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/thomthom/solid-inspector" rel="noopener" target="_blank">Source: solid-inspector</a></div>
+  </div>
+</article><article class="sample" data-id="walls">
+  <div class="smedia" data-state="before">
+    <video class="sv-before" src="samples/walls/before.mp4" poster="samples/walls/before.jpg" muted loop playsinline preload="none"></video>
+    <video class="sv-after" src="samples/walls/after.mp4" poster="samples/walls/after.jpg" muted loop playsinline preload="none"></video>
+    <div class="seg" role="group"><button type="button" class="on" data-v="before">Before</button><button type="button" data-v="after">After</button></div>
+    <span class="scale-tag">1:250</span>
+  </div>
+  <div class="sbody">
+    <h3>Walls-only massing</h3>
+    <p class="snote">wall groups meeting only at the corners</p>
+    <p class="sdim"><span>Real 37 × 17 × 12 m</span><span>Print 149 × 70 × 48 mm</span></p>
+    <ul class="sstats"><li><span>open edges</span><b><s class="z">0</s> → <em>0</em></b></li><li><span>non-manifold</span><b><s class="">57</s> → <em>0</em></b></li><li><span>pieces</span><b><s class="">10</s> → <em>1</em></b></li><li><span>deviation median / 95%</span><b>0.31 / 0.42 mm</b></li></ul>
+    <div class="sact"><button type="button" class="btn-sm primary try" data-id="walls">Try this sample</button>
+      <a class="btn-sm" href="samples/walls/model.skp" download>.skp</a>
+      <a class="btn-sm ghost" href="https://github.com/thomthom/solid-inspector" rel="noopener" target="_blank">Source: solid-inspector</a></div>
+  </div>
+</article></div>
+    <p class="credits">Sample models: MIT-licensed test files from SketchUp/testup-2 (Trimble Inc.), thomthom/solid-inspector, Eneroth3/eneroth-solid-tools and iamahsanmehmood/openskp.</p>
   </section>
 
-  <section id="how">
-    <h2>How it works</h2>
-    <div class="cards three"><div class="card"><span class="num">1</span><h3>Drop your file</h3><p>STL, OBJ, PLY, GLB, 3MF or OFF. The check runs in your browser first: holes, non-manifold edges, flipped faces, shells, size.</p></div><div class="card"><span class="num">2</span><h3>Repair</h3><p>The server rebuilds the model as one closed solid that keeps the outside, removes parts thinner than a nozzle and verifies the result. Write a request to have the agent follow it.</p></div><div class="card"><span class="num">3</span><h3>Check and download</h3><p>Turn the before and after side by side in 3D, then download the printable STL.</p></div></div>
+  <section id="how" class="plain">
+    <div class="shead"><h2>How it works</h2><p>Everything a SketchUp file needs before a slicer can read it, in one pass.</p></div>
+    <div class="steps"><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg></div><span class="num">1</span><h3>Upload the .skp</h3><p>Or export STL/OBJ yourself. The SketchUp file is opened by the official SketchUp SDK in an isolated, low-privilege process; hidden tags and hidden objects are skipped.</p></div><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></div><span class="num">2</span><h3>Diagnose at your print scale</h3><p>Open faces, edges shared by three or more faces, flipped faces, overlapping groups, loose pieces, and parts that become thinner than a nozzle at 1:N.</p></div><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></div><span class="num">3</span><h3>Rebuild one closed solid</h3><p>The model is rebuilt as a single watertight solid that keeps the outer surface. Free-standing parts too thin to print are removed; relief on walls is kept.</p></div><div class="step"><div class="sico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span class="num">4</span><h3>Verify and download</h3><p>The result must have 0 open and 0 non-manifold edges. Its deviation from your model is measured; you get an STL to slice.</p></div></div>
   </section>
 
-  <section>
-    <h2>What breaks a print, and what we do about it</h2>
-    <p class="note">Each of these makes a slicer drop walls, fill the wrong side or skip layers.</p>
-    <div class="cards errs"><div class="card"><span class="num">01</span><h3>Open edges (holes)</h3><dl><dt>What</dt><dd>An edge used by only one face: the surface is not closed.</dd><dt>In the slicer</dt><dd>The slicer cannot tell inside from outside, so walls and floors go missing.</dd><dt>printdoctor</dt><dd>The model is rebuilt as a closed solid; the holes are filled from the surrounding surface.</dd></dl></div><div class="card"><span class="num">02</span><h3>Non-manifold edges</h3><dl><dt>What</dt><dd>An edge shared by three or more faces, typical of unwelded CAD and architectural exports.</dd><dt>In the slicer</dt><dd>Cross-sections become ambiguous and layers come out partly empty.</dd><dt>printdoctor</dt><dd>Overlapping and touching pieces are merged into one solid with a single clean surface.</dd></dl></div><div class="card"><span class="num">03</span><h3>Flipped faces</h3><dl><dt>What</dt><dd>Neighbouring faces wound in opposite directions.</dd><dt>In the slicer</dt><dd>Parts of the model are treated as inside-out.</dd><dt>printdoctor</dt><dd>The rebuilt surface is oriented consistently, outward.</dd></dl></div><div class="card"><span class="num">04</span><h3>Zero-area faces</h3><dl><dt>What</dt><dd>Triangles collapsed to a line or point.</dd><dt>In the slicer</dt><dd>Slicer warnings, tiny gaps, failed booleans.</dd><dt>printdoctor</dt><dd>Removed in the rebuild.</dd></dl></div><div class="card"><span class="num">05</span><h3>Loose shells</h3><dl><dt>What</dt><dd>Hundreds of separate pieces: window frames, panels, labels.</dd><dt>In the slicer</dt><dd>Floating specks print as strings or fall off; overlaps double the walls.</dd><dt>printdoctor</dt><dd>Pieces are joined into one body; specks smaller than a nozzle are dropped.</dd></dl></div><div class="card"><span class="num">06</span><h3>Parts thinner than the nozzle</h3><dl><dt>What</dt><dd>Free-standing rails, rods and antennas under about 0.45 mm.</dd><dt>In the slicer</dt><dd>They print as broken strands or not at all.</dd><dt>printdoctor</dt><dd>They are detected and removed, while relief lying on a surface (lettering, patterns) is kept.</dd></dl></div></div>
+  <section class="plain">
+    <div class="shead"><h2>Why SketchUp models fail to print</h2><p>SketchUp is a surface modeller: what looks solid on screen is often a set of separate faces. These are the usual reasons a slicer rejects a building.</p></div>
+    <div class="ecards"><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V6l8-3 8 3v14"/><path d="M4 20h16"/></svg></div><h3>Single faces as walls</h3><p>A wall drawn as one face has no thickness. Slicers see a hole, not a wall.</p><p class="fix"><b>Fix</b> Walls are rebuilt with material on the inside of the facade.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="9" height="9" rx="1"/><rect x="12" y="10" width="9" height="9" rx="1"/></svg></div><h3>Groups that only touch</h3><p>Each group or component is its own shell. Where they meet, edges are shared by 3+ faces: non-manifold.</p><p class="fix"><b>Fix</b> Touching and overlapping groups are merged into one body.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15h18M7 15V7h10v8"/><path d="M10 15v6M14 15v6" stroke-dasharray="2 2"/></svg></div><h3>Overlapping and intersecting geometry</h3><p>Floors pushed through walls, roofs through gables. Double walls and inner faces confuse slicers.</p><p class="fix"><b>Fix</b> Inner faces disappear; only the outer skin is kept.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V8M9 20V8M13 20V8M17 20V8M3 8h18"/></svg></div><h3>Too thin at the chosen scale</h3><p>A 50 mm railing is 0.25 mm at 1:200. It cannot print, but it keeps the model from being one solid.</p><p class="fix"><b>Fix</b> Free-standing thin parts are removed and listed; nothing on a wall surface is touched.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></div><h3>Reversed faces</h3><p>The grey back side facing out. Some slicers fill the wrong side.</p><p class="fix"><b>Fix</b> The rebuilt surface is oriented outward everywhere.</p></div><div class="ecard"><div class="eico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 14-14 4 4L7 21l-4-4Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></svg></div><h3>Wrong units or stray geometry</h3><p>Models drawn in the wrong unit, tiny leftover edges, 2D people and trees.</p><p class="fix"><b>Fix</b> Scale presets, size preview at print scale, specks smaller than a nozzle dropped.</p></div></div>
   </section>
 
   <div class="ad" data-slot="middle"></div>
 
-  <section>
-    <h2>Why printdoctor</h2>
-    <div class="cards four"><div class="card"><h3>Keeps the outside</h3><p>Every result is measured against your original: median and 95th-percentile deviation are in the log.</p></div><div class="card"><h3>Built for messy exports</h3><p>SketchUp, Revit and game or AI-generated meshes with thousands of loose, unwelded pieces.</p></div><div class="card"><h3>Knows what is too thin</h3><p>Separates rails that cannot print from lettering and relief that can.</p></div><div class="card"><h3>Checked like a slicer would</h3><p>Open and non-manifold edges must be 0 before a result is called printable.</p></div></div>
+  <section id="scale">
+    <div class="shead"><h2>Scale guide: what survives at 1:N</h2><p>An FDM nozzle prints walls of about 0.8 mm and free-standing details of about 0.45 mm. This table shows the real thickness that becomes that small at each scale.</p></div>
+    <div class="scalegrid">
+      <div class="tbl"><table class="stable"><tr><th>Scale</th><th>Smallest wall (0.8 mm printed)</th><th>Smallest free detail (0.45 mm)</th><th>A 10 m façade becomes</th></tr><tr><td><b>1:50</b></td><td>40 mm</td><td>22 mm</td><td>200 mm</td></tr><tr><td><b>1:100</b></td><td>80 mm</td><td>45 mm</td><td>100 mm</td></tr><tr><td><b>1:200</b></td><td>160 mm</td><td>90 mm</td><td>50 mm</td></tr><tr><td><b>1:300</b></td><td>240 mm</td><td>135 mm</td><td>33 mm</td></tr><tr><td><b>1:500</b></td><td>400 mm</td><td>225 mm</td><td>20 mm</td></tr><tr><td><b>1:1,000</b></td><td>800 mm</td><td>450 mm</td><td>10 mm</td></tr></table></div>
+      <div class="calc" data-msgs="[&quot;prints&quot;, &quot;prints as a thin wall; 0.8 mm+ is safer&quot;, &quot;thinner than a nozzle: removed if free-standing&quot;]">
+        <h3>Check one element</h3>
+        <label>Real thickness (mm) <input id="c-real" type="number" value="50" min="0" step="any"></label>
+        <label>Scale 1: <input id="c-n" type="number" value="200" min="1" step="1"></label>
+        <div class="cout"><span>Printed</span><b id="c-out">0.25 mm</b></div>
+        <div class="cbar"><i id="c-bar"></i><span class="m1"></span><span class="m2"></span></div>
+        <p id="c-msg" class="cmsg"></p>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>Compared with the usual routes</h2>
-    <div class="tbl"><table><tr><th></th><th>Manual fix (Blender, Meshmixer)</th><th>One-click hole fillers</th><th>printdoctor</th></tr><tr><td class="">Time</td><td class="">30 min to hours</td><td class="">Seconds</td><td class="good">About a minute</td></tr><tr><td class="">Skill needed</td><td class="">Mesh modelling</td><td class="">None</td><td class="good">None</td></tr><tr><td class="">Thousands of loose pieces</td><td class="">Tedious</td><td class="">Often keeps only the largest piece</td><td class="good">Merged into one solid</td></tr><tr><td class="">Thin parts</td><td class="">By eye</td><td class="">Ignored</td><td class="good">Detected and removed</td></tr><tr><td class="">Deviation from original</td><td class="">Unmeasured</td><td class="">Unmeasured</td><td class="good">Reported</td></tr><tr><td class="">Cost</td><td class="">Your time</td><td class="">Free to paid</td><td class="good">Free (beta)</td></tr></table></div>
+  <section class="plain">
+    <div class="shead"><h2>Compared with the usual routes</h2></div>
+    <div class="tbl"><table class="ctable"><tr><th></th><th>Fix by hand in SketchUp</th><th>Generic STL repair sites</th><th>printdoctor</th></tr><tr><td class="">Opens .skp directly</td><td class="">Yes</td><td class="">No (export first)</td><td class="good">Yes</td></tr><tr><td class="">Groups and components</td><td class="">Explode, intersect, clean up by hand</td><td class="">Often keeps only the largest piece</td><td class="good">Merged into one solid</td></tr><tr><td class="">Thin parts at scale</td><td class="">Judged by eye</td><td class="">Ignored</td><td class="good">Detected for your 1:N and removed</td></tr><tr><td class="">Deviation from original</td><td class="">Unmeasured</td><td class="">Unmeasured</td><td class="good">Measured and reported</td></tr><tr><td class="">Time for a building</td><td class="">Hours</td><td class="">Minutes, often fails</td><td class="good">1 to 4 minutes</td></tr><tr><td class="">Cost</td><td class="">Your time</td><td class="">Free to paid</td><td class="good">Free (beta)</td></tr></table></div>
   </section>
 
-  <section>
-    <h2>Good for</h2>
-    <div class="cards four"><div class="card"><h3>Architectural models</h3><p>SketchUp and Revit exports for scale models.</p></div><div class="card"><h3>AI-generated and game meshes</h3><p>Open, self-intersecting, many-shell meshes.</p></div><div class="card"><h3>3D scans</h3><p>Holes and noise from photogrammetry and scanners.</p></div><div class="card"><h3>Downloaded files</h3><p>Models that slice with errors or missing layers.</p></div></div>
+  <section class="plain">
+    <div class="shead"><h2>Made for</h2></div>
+    <div class="uses"><div class="use"><h3>Design offices</h3><p>Massing and presentation models straight from the working SketchUp file.</p></div><div class="use"><h3>Competitions and studios</h3><p>Physical models for juries and crits without a cleanup day.</p></div><div class="use"><h3>Students</h3><p>Thesis and studio models when the deadline does not leave time for mesh repair.</p></div><div class="use"><h3>Developers and sales</h3><p>Site and block models for briefings, printed in-house.</p></div></div>
   </section>
 
-  <section id="faq">
-    <h2>FAQ</h2>
-    <details><summary>How do I repair an STL online?</summary><p>Drop the file into the tool above. The free check shows what is wrong; press Repair and download the result a minute later.</p></details><details><summary>Which formats can I upload?</summary><p>STL, OBJ, PLY, GLB/GLTF, 3MF and OFF, up to 50 MB. The result is an STL.</p></details><details><summary>Does it change the shape?</summary><p>It rebuilds the surface at about 0.2 mm resolution for models up to 25 cm, so detail finer than that softens. The deviation from your original is measured and shown.</p></details><details><summary>What does the request box do?</summary><p>With a request, an agent decides the repair steps, for example removing railings but keeping lettering. Agent jobs have a daily limit; without a request the automatic pipeline runs.</p></details><details><summary>Is it free? Can I use the result commercially?</summary><p>Yes, the beta is free (supported by ads), and you keep all rights to your models and the results.</p></details><details><summary>Who can see my file?</summary><p>Only the server that processes it. Files and results are deleted automatically after 24 hours; see the privacy policy.</p></details><details><summary>My model is in centimetres or inches</summary><p>Set the scale: 10 for centimetres to millimetres, 25.4 for inches.</p></details>
+  <section id="faq" class="plain">
+    <div class="shead"><h2>FAQ</h2></div>
+    <div class="faq"><details><summary>Which SketchUp versions are supported?</summary><p>Files saved by SketchUp 2017 or newer open directly. If a file is rejected, save it again from a recent SketchUp, or export STL (File &gt; Export &gt; 3D Model).</p></details><details><summary>What happens to hidden tags, layers and objects?</summary><p>Hidden objects and objects on hidden tags are skipped, exactly as in the SketchUp view. Hide people, trees and furniture before uploading if you do not want them printed.</p></details><details><summary>Which scale should I choose?</summary><p>Pick the 1:N you will print at. The model is shrunk first, then checked, so anything that is too thin at that scale is found. The tool shows the print size before you upload.</p></details><details><summary>Is the .skp file safe on your side?</summary><p>SketchUp files are opened on our processing PC in an isolated low-integrity process with no access to other files, a memory cap and a time limit. All files are deleted after 24 hours.</p></details><details><summary>Does the shape change?</summary><p>The surface is rebuilt at about 0.2 mm, so detail finer than that softens. The median and 95th-percentile deviation from your model are reported for every job.</p></details><details><summary>What does the request box do?</summary><p>With a sentence, an agent plans the repair, for example removing railings but keeping lettering. Agent jobs have a daily limit; without a request the automatic pipeline runs.</p></details><details><summary>Is it free? Can I use the results commercially?</summary><p>Yes. The beta is free and supported by ads, and you keep all rights to your models and to the results.</p></details><details><summary>Is the source code available?</summary><p>Not yet. The processing code and our own example models will be published later; for now the service is used through this page.</p></details></div>
   </section>
 
-  <section class="cta"><h2>Ready to print?</h2><a class="btn primary-btn" href="#tool">Repair a model</a></section>
+  <section class="cta"><h2>Your building, on the print bed today</h2><a class="primary-btn" href="#tool">Convert a SketchUp file</a></section>
   <div class="ad" data-slot="bottom"></div>
-  <footer>printdoctor · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> ·
-    <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">Contact</a></footer>
 </main>
-<script src="assets/site.js"></script>
+<footer class="foot"><div class="wrap">
+  <span class="brand"><span class="logo"></span>printdoctor</span>
+  <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> ·
+    <a href="https://github.com/JaekunE2/JaekunE2.github.io">GitHub</a> · <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">Contact</a></span>
+</div></footer>
 <script src="assets/config.js"></script>
+<script src="assets/site.js"></script>
 <script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module" src="assets/app.js"></script>

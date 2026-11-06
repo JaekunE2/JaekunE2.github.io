@@ -1,0 +1,218 @@
+[
+ {
+  "id": "house",
+  "name_ko": "유럽식 타운하우스",
+  "name_en": "Townhouse",
+  "note_ko": "창호·발코니·지붕창이 각각 따로 노는 그룹",
+  "note_en": "windows, balconies and dormers as separate groups",
+  "scale": 200,
+  "repo": "Eneroth3/eneroth-solid-tools",
+  "skp": "House.skp",
+  "real_mm": [
+   26156,
+   19706,
+   27338
+  ],
+  "print_mm": [
+   130.78,
+   98.53,
+   136.69
+  ],
+  "before": {
+   "open_edges": 738,
+   "nonmanifold_edges": 80,
+   "bodies": 146,
+   "faces": 8708
+  },
+  "after": {
+   "open_edges": 0,
+   "nonmanifold_edges": 0,
+   "bodies": 1,
+   "faces": 1500000
+  },
+  "thin": 6,
+  "dev_median": 0.334,
+  "dev_p95": 0.446,
+  "seconds": 204
+ },
+ {
+  "id": "tower",
+  "name_ko": "고층 타워 (Hearst Tower 모델)",
+  "name_en": "High-rise tower (Hearst Tower model)",
+  "note_ko": "다이아그리드 외피와 내부 층이 겹친 182 m 타워",
+  "note_en": "182 m tower, diagrid skin overlapping the floors",
+  "scale": 1000,
+  "repo": "SketchUp/testup-2",
+  "skp": "Hearst+Tower+(New+York)-su2020.skp",
+  "real_mm": [
+   79900,
+   79760,
+   182600
+  ],
+  "print_mm": [
+   79.9,
+   79.76,
+   182.6
+  ],
+  "before": {
+   "open_edges": 386,
+   "nonmanifold_edges": 204,
+   "bodies": 66,
+   "faces": 14392
+  },
+  "after": {
+   "open_edges": 0,
+   "nonmanifold_edges": 0,
+   "bodies": 1,
+   "faces": 1500000
+  },
+  "thin": 10,
+  "dev_median": 0.33,
+  "dev_p95": 6.701,
+  "seconds": 121
+ },
+ {
+  "id": "twin-houses",
+  "name_ko": "대지 위 두 채의 주택",
+  "name_en": "Two houses on a site",
+  "note_ko": "대지 면 한 장 + 라벨이 붙은 주택 두 채",
+  "note_en": "a one-face site plus two labelled houses",
+  "scale": 400,
+  "repo": "Eneroth3/eneroth-solid-tools",
+  "skp": "berh_house_with_labels.skp",
+  "real_mm": [
+   56856,
+   37600,
+   26340
+  ],
+  "print_mm": [
+   142.14,
+   94.0,
+   65.85
+  ],
+  "before": {
+   "open_edges": 1012,
+   "nonmanifold_edges": 12,
+   "bodies": 128,
+   "faces": 10220
+  },
+  "after": {
+   "open_edges": 0,
+   "nonmanifold_edges": 0,
+   "bodies": 1,
+   "faces": 1500000
+  },
+  "thin": 8,
+  "dev_median": 0.335,
+  "dev_p95": 0.428,
+  "seconds": 80
+ },
+ {
+  "id": "housing-blocks",
+  "name_ko": "공동주택 두 동",
+  "name_en": "Two housing blocks",
+  "note_ko": "층마다 따로 그린 슬래브·벽, 단위가 작게 그려진 모델",
+  "note_en": "slabs and walls per floor; drawn in the wrong unit",
+  "scale": 30,
+  "repo": "iamahsanmehmood/openskp",
+  "skp": "gondola_v20.skp",
+  "real_mm": [
+   3820,
+   4817,
+   3140
+  ],
+  "print_mm": [
+   127.32,
+   160.57,
+   104.67
+  ],
+  "before": {
+   "open_edges": 9436,
+   "nonmanifold_edges": 1463,
+   "bodies": 1207,
+   "faces": 53269
+  },
+  "after": {
+   "open_edges": 0,
+   "nonmanifold_edges": 0,
+   "bodies": 1,
+   "faces": 1500000
+  },
+  "thin": 32,
+  "dev_median": 0.419,
+  "dev_p95": 0.61,
+  "seconds": 483
+ },
+ {
+  "id": "long-house",
+  "name_ko": "단층 장옥",
+  "name_en": "Long single-storey house",
+  "note_ko": "솔리드 그룹이 서로 떨어져 있는 모델",
+  "note_en": "solid groups that do not touch",
+  "scale": 400,
+  "repo": "thomthom/solid-inspector",
+  "skp": "SolidHouseDisconnected.skp",
+  "real_mm": [
+   59572,
+   28512,
+   11668
+  ],
+  "print_mm": [
+   148.93,
+   71.28,
+   29.17
+  ],
+  "before": {
+   "open_edges": 50,
+   "nonmanifold_edges": 65,
+   "bodies": 79,
+   "faces": 2400
+  },
+  "after": {
+   "open_edges": 0,
+   "nonmanifold_edges": 0,
+   "bodies": 1,
+   "faces": 1500000
+  },
+  "thin": 7,
+  "dev_median": 0.346,
+  "dev_p95": 7.21,
+  "seconds": 93
+ },
+ {
+  "id": "walls",
+  "name_ko": "벽체 매스",
+  "name_en": "Walls-only massing",
+  "note_ko": "벽 그룹들이 모서리에서만 맞닿음",
+  "note_en": "wall groups meeting only at the corners",
+  "scale": 250,
+  "repo": "thomthom/solid-inspector",
+  "skp": "new build.skp",
+  "real_mm": [
+   37290,
+   17395,
+   12000
+  ],
+  "print_mm": [
+   149.16,
+   69.58,
+   48.0
+  ],
+  "before": {
+   "open_edges": 0,
+   "nonmanifold_edges": 57,
+   "bodies": 10,
+   "faces": 427
+  },
+  "after": {
+   "open_edges": 0,
+   "nonmanifold_edges": 0,
+   "bodies": 1,
+   "faces": 1500000
+  },
+  "thin": 0,
+  "dev_median": 0.313,
+  "dev_p95": 0.42,
+  "seconds": 81
+ }
+]

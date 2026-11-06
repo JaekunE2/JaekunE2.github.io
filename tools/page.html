@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{desc}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{desc}}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jaekune2.github.io/samples/house/after.jpg">
+<link rel="alternate" hreflang="en" href="https://jaekune2.github.io/"><link rel="alternate" hreflang="ko" href="https://jaekune2.github.io/ko/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e2531f'/%3E%3Cpath d='M8 23V13l8-5 8 5v10z' fill='none' stroke='white' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="{{pre}}assets/site.css">
+<script type="application/ld+json">{{ld}}</script>
+<script type="application/ld+json">{{faqld}}</script>
+<meta name="google-adsense-account" content="ca-pub-5502039335259677">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502039335259677" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="topbar"><nav class="wrap">
+  <a class="brand" href="./"><span class="logo"></span>printdoctor<small>for SketchUp</small></a>
+  <span class="links">{{nav}}</span>
+  <span class="lang"><a href="{{en_href}}" {{en_cur}}>EN</a><a href="{{ko_href}}" {{ko_cur}}>한국어</a></span>
+</nav></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">{{eyebrow}}</span>
+    <h1>{{h1a}}<br><span class="grad">{{h1b}}</span></h1>
+    <p class="lead">{{sub}}</p>
+    <div class="flow">{{flow}}</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="tool" class="tool">
+    <div class="toolhead">
+      <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden accept=".skp,.stl,.obj,.ply,.off,.glb,.gltf,.3mf">
+        <span class="ico"></span><b>{{drop_b}}</b><small>{{drop_s}}</small></label>
+      <div class="tryrow"><span>{{try_h}}</span><div class="chips-s">{{chips}}</div></div>
+    </div>
+    <div class="toolgrid">
+      <div id="pd-view" class="view single" hidden><div class="pane"></div><div class="pane" hidden></div></div>
+      <div id="pd-check" class="check" hidden>
+        <span id="pd-badge" class="badge-state" hidden></span>
+        <h3>{{defects}}</h3><ul class="def"></ul>
+        <h3>{{geometry}}</h3><ul class="geo"></ul>
+        <p class="note">{{checknote}}</p>
+      </div>
+    </div>
+    <div id="pd-skp" class="skpnote" hidden></div>
+    <div class="opts">
+      <div class="opt">
+        <span class="optl">{{scale_l}}</span>
+        <div class="chips" id="pd-presets">{{presets}}<button type="button" class="chip" data-n="1">{{scale_real}}</button>
+          <label class="chip custom">{{scale_custom}}<input id="pd-n" type="number" min="1" max="100000" step="1" inputmode="numeric"></label></div>
+        <span id="pd-size" class="psize"></span>
+      </div>
+      <input id="pd-req" maxlength="500" placeholder="{{req}}">
+    </div>
+    <label class="consent"><input id="pd-consent" type="checkbox"> <span>{{consent}}</span></label>
+    <div class="row act"><button id="pd-send" class="primary" type="button">{{send}}</button><span id="pd-status" class="status"></span></div>
+    <div id="pd-prog" class="prog" hidden><i></i></div>
+    <pre id="pd-log" class="log"></pre>
+    <div id="pd-files" class="files"></div>
+    <p id="pd-info" class="note"></p>
+  </section>
+
+  <div class="pills">{{pills}}</div>
+
+  <section class="stats-band">
+    <h2 class="sr">{{stats_h}}</h2>
+    <p class="kicker">{{stats_h}}</p>
+    <div class="stats">{{stats}}</div>
+  </section>
+
+  <div class="ad" data-slot="top"></div>
+
+  <section id="samples" class="plain">
+    <div class="shead"><h2>{{samples_h}}</h2><p>{{samples_p}}</p></div>
+    <div class="samples">{{samples}}</div>
+    <p class="credits">{{credits}}</p>
+  </section>
+
+  <section id="how" class="plain">
+    <div class="shead"><h2>{{how_h}}</h2><p>{{how_p}}</p></div>
+    <div class="steps">{{steps}}</div>
+  </section>
+
+  <section class="plain">
+    <div class="shead"><h2>{{err_h}}</h2><p>{{err_p}}</p></div>
+    <div class="ecards">{{errs}}</div>
+  </section>
+
+  <div class="ad" data-slot="middle"></div>
+
+  <section id="scale">
+    <div class="shead"><h2>{{scale_h}}</h2><p>{{scale_p}}</p></div>
+    <div class="scalegrid">
+      <div class="tbl"><table class="stable">{{scale_table}}</table></div>
+      <div class="calc" data-msgs="{{calc_msgs}}">
+        <h3>{{calc_h}}</h3>
+        <label>{{calc_real}} <input id="c-real" type="number" value="50" min="0" step="any"></label>
+        <label>{{calc_scale}} <input id="c-n" type="number" value="200" min="1" step="1"></label>
+        <div class="cout"><span>{{calc_out}}</span><b id="c-out">0.25 mm</b></div>
+        <div class="cbar"><i id="c-bar"></i><span class="m1"></span><span class="m2"></span></div>
+        <p id="c-msg" class="cmsg"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plain">
+    <div class="shead"><h2>{{cmp_h}}</h2></div>
+    <div class="tbl"><table class="ctable">{{cmp}}</table></div>
+  </section>
+
+  <section class="plain">
+    <div class="shead"><h2>{{use_h}}</h2></div>
+    <div class="uses">{{uses}}</div>
+  </section>
+
+  <section id="faq" class="plain">
+    <div class="shead"><h2>{{faq_h}}</h2></div>
+    <div class="faq">{{faq}}</div>
+  </section>
+
+  <section class="cta"><h2>{{cta_h}}</h2><a class="primary-btn" href="#tool">{{cta_b}}</a></section>
+  <div class="ad" data-slot="bottom"></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <span class="brand"><span class="logo"></span>printdoctor</span>
+  <span><a href="{{pre}}privacy.html{{hash}}">{{f0}}</a> · <a href="{{pre}}terms.html{{hash}}">{{f1}}</a> ·
+    <a href="https://github.com/JaekunE2/JaekunE2.github.io">{{f2}}</a> · <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">{{f3}}</a></span>
+</div></footer>
+<script src="{{pre}}assets/config.js"></script>
+<script src="{{pre}}assets/site.js"></script>
+<script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="{{pre}}assets/app.js"></script>
+<script src="{{pre}}assets/ads.js"></script>
+</body>
+</html>
