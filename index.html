@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>printdoctor</title>
+<meta name="description" content="Agent-based diagnosis and repair of 3D models for printing, checked in a real slicer.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<main>
+  <nav>
+    <span class="brand">printdoctor</span>
+    <span class="lang"><a href="./" aria-current="page">EN</a><a href="ko/" hreflang="ko">한국어</a></span>
+  </nav>
+
+  <header>
+    <h1>Models that look fine but don't print, fixed so every layer prints</h1>
+    <p>Upload a model. An agent finds what breaks in the slicer (non-manifold edges, open surfaces,
+      unwelded architectural exports, parts thinner than the nozzle), repairs it into closed solids that
+      keep the visible outside, and shows the change as a before/after orbit.</p>
+    <span class="badge">Free beta</span><span class="badge">Source code: private</span>
+  </header>
+
+  <section id="try">
+    <h2>Try it</h2>
+    <p class="note">Upload an STL, OBJ, PLY, OFF, GLB or 3MF model and get it back repaired. No sign-up.
+      Write a request ("remove the thin railings, keep the lettering") and the agent handles it within a daily limit;
+      leave it empty and the automatic repair pipeline runs.</p>
+    <form id="pd-form">
+      <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden><span></span></label>
+      <div class="row">
+        <input id="pd-req" maxlength="500" placeholder="Request (optional): e.g. remove the thin railings, keep the sign lettering">
+        <label class="scale">Scale <input id="pd-scale" type="number" value="1" step="any" min="0.001"></label>
+      </div>
+      <label class="consent"><input id="pd-consent" type="checkbox"> <span>I agree to the <a href="privacy.html">privacy policy</a> and <a href="terms.html">terms</a>. Do not upload models you have no right to share or that are confidential.</span></label>
+      <button id="pd-send" class="primary">Repair</button>
+      <p id="pd-info" class="note"></p>
+    </form>
+    <p id="pd-status" class="status"></p>
+    <pre id="pd-log" class="log"></pre>
+    <div id="pd-view" class="view" hidden><div class="pane"><span class="tag">BEFORE</span></div><div class="pane"><span class="tag">AFTER</span></div></div>
+    <div id="pd-files" class="files"></div>
+  </section>
+  <div class="ad" data-slot="top"></div>
+
+  <section>
+    <h2>Before / After</h2>
+    <p class="note">Drag the handle. Same camera, frame by frame.</p>
+    <div class="ba">
+      <video class="before" src="media/before.mp4" muted loop playsinline preload="auto"></video>
+      <video class="after" src="media/after.mp4" muted loop playsinline preload="auto"></video>
+      <span class="tag" style="left:10px">BEFORE</span><span class="tag" style="right:10px">AFTER</span>
+      <div class="bar"></div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#f2261f"></i>Open and non-manifold edges</span>
+      <span><i style="background:#ff8c1a"></i>Parts too thin to print, removed</span>
+      <span>Relief that lies on a surface (lettering, window frames) is kept</span>
+    </div>
+  </section>
+
+
+
+
+  <div class="ad" data-slot="middle"></div>
+  <section>
+    <h2>How it works</h2>
+    <div class="steps">
+      <div><b>1. Diagnose</b>Open and non-manifold edges, loose pieces, free-standing parts thinner than the nozzle.</div>
+      <div><b>2. Solidify</b>Voxel fill under a memory guard, marching cubes, topology-preserving decimation.</div>
+      <div><b>3. Split and restore</b>Exact booleans for inserts with clearance and added pieces.</div>
+      <div><b>4. Colour</b>Source materials to N filament parts in one 3MF.</div>
+      <div><b>5. Prove it</b>Slice before and after with CuraEngine and compare the toolpaths.</div>
+    </div>
+    <p class="note">An agent (Claude) reads the diagnosis and the request ("keep the lettering, make the stair removable")
+      and chooses the steps; without one, a fixed pipeline runs the same tools.</p>
+  </section>
+
+  <div class="ad" data-slot="bottom"></div>
+  <footer>printdoctor · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">Contact</a></footer>
+</main>
+<script src="assets/site.js"></script>
+<script src="assets/config.js"></script>
+<script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="assets/app.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

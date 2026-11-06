@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>printdoctor</title>
+<meta name="description" content="에이전트 기반 3D 프린팅 오류 진단·수정, 실제 슬라이서로 검증.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<main>
+  <nav>
+    <span class="brand">printdoctor</span>
+    <span class="lang"><a href="../" hreflang="en">EN</a><a href="./" aria-current="page">한국어</a></span>
+  </nav>
+
+  <header>
+    <h1>멀쩡해 보여도 출력이 안 되는 모델을, 모든 층이 나오도록</h1>
+    <p>모델을 올리면 에이전트가 슬라이서에서 깨지는 원인(논매니폴드 엣지, 열린 면, 용접 안 된 건축 모델, 노즐보다 얇은 부재)을
+      찾고, 겉모양은 유지한 채 닫힌 솔리드로 고친 뒤, 수정 전후를 같은 카메라의 오르빗 영상으로 보여줍니다.</p>
+    <span class="badge">무료 베타</span><span class="badge">소스 코드 비공개</span>
+  </header>
+
+  <section id="try">
+    <h2>직접 해 보기</h2>
+    <p class="note">STL·OBJ·PLY·OFF·GLB·3MF 모델을 올리면 서버에서 고쳐서 돌려드립니다. 회원가입은 필요 없습니다.
+      요청 문장을 쓰면(예: "난간은 지우고 글자는 남겨줘") 하루 한도 안에서 에이전트가 처리하고, 비우면 자동 수리 파이프라인이 처리합니다.</p>
+    <form id="pd-form">
+      <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden><span></span></label>
+      <div class="row">
+        <input id="pd-req" maxlength="500" placeholder="요청 (선택): 예) 얇은 난간은 지우고 간판 글자는 남겨줘">
+        <label class="scale">배율 <input id="pd-scale" type="number" value="1" step="any" min="0.001"></label>
+      </div>
+      <label class="consent"><input id="pd-consent" type="checkbox"> <span><a href="../privacy.html#ko">개인정보처리방침</a>과 <a href="../terms.html#ko">이용약관</a>에 동의합니다. 남의 저작물·기밀 모델은 올리지 마세요.</span></label>
+      <button id="pd-send" class="primary">고치기</button>
+      <p id="pd-info" class="note"></p>
+    </form>
+    <p id="pd-status" class="status"></p>
+    <pre id="pd-log" class="log"></pre>
+    <div id="pd-view" class="view" hidden><div class="pane"><span class="tag">수정 전</span></div><div class="pane"><span class="tag">수정 후</span></div></div>
+    <div id="pd-files" class="files"></div>
+  </section>
+  <div class="ad" data-slot="top"></div>
+
+  <section>
+    <h2>수정 전 / 후</h2>
+    <p class="note">가운데 손잡이를 끌어 보세요. 같은 카메라, 같은 프레임입니다.</p>
+    <div class="ba">
+      <video class="before" src="../media/before.mp4" muted loop playsinline preload="auto"></video>
+      <video class="after" src="../media/after.mp4" muted loop playsinline preload="auto"></video>
+      <span class="tag" style="left:10px">BEFORE</span><span class="tag" style="right:10px">AFTER</span>
+      <div class="bar"></div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#f2261f"></i>열린 면 · 논매니폴드 엣지</span>
+      <span><i style="background:#ff8c1a"></i>출력할 수 없는 얇은 부재 (제거)</span>
+      <span>글자·창틀처럼 면에 붙은 양각은 유지</span>
+    </div>
+  </section>
+
+
+
+
+  <div class="ad" data-slot="middle"></div>
+  <section>
+    <h2>작동 방식</h2>
+    <div class="steps">
+      <div><b>1. 진단</b>열린·논매니폴드 엣지, 떨어진 조각, 노즐보다 얇은 독립 부재.</div>
+      <div><b>2. 솔리드화</b>메모리 가드 아래 복셀 채움, 마칭 큐브, 위상 보존 감량.</div>
+      <div><b>3. 분리·복원</b>공차를 둔 끼움 부품과 추가 부재를 정확한 불리언으로.</div>
+      <div><b>4. 색상</b>원본 머티리얼을 N개 필라멘트 부품으로, 3MF 하나에.</div>
+      <div><b>5. 검증</b>수정 전후를 CuraEngine으로 슬라이스해 경로 비교.</div>
+    </div>
+    <p class="note">에이전트(Claude)가 진단 결과와 요청("글자는 유지, 계단은 빼낼 수 있게")을 보고 단계를 고릅니다.
+      에이전트 없이도 같은 도구를 정해진 순서로 실행합니다.</p>
+  </section>
+
+  <div class="ad" data-slot="bottom"></div>
+  <footer>printdoctor · <a href="../privacy.html#ko">개인정보처리방침</a> · <a href="../terms.html#ko">이용약관</a> · <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">문의</a></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/config.js"></script>
+<script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="../assets/app.js"></script>
+<script src="../assets/ads.js"></script>
+</body>
+</html>
