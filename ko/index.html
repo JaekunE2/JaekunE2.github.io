@@ -3,80 +3,96 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>printdoctor</title>
-<meta name="description" content="에이전트 기반 3D 프린팅 오류 진단·수정, 실제 슬라이서로 검증.">
+<title>printdoctor · 무료 STL 수리, 3D 프린팅 오류 고치기</title>
+<meta name="description" content="STL·OBJ·GLB·3MF 모델의 구멍, 논매니폴드 엣지, 흩어진 조각을 브라우저에서 무료로 점검하고, 출력 가능한 닫힌 솔리드로 고칩니다. 가입 없이 무료.">
+<link rel="alternate" hreflang="en" href="https://jaekune2.github.io/"><link rel="alternate" hreflang="ko" href="https://jaekune2.github.io/ko/">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<main>
-  <nav>
-    <span class="brand">printdoctor</span>
-    <span class="lang"><a href="../" hreflang="en">EN</a><a href="./" aria-current="page">한국어</a></span>
-  </nav>
-
-  <header>
-    <h1>멀쩡해 보여도 출력이 안 되는 모델을, 모든 층이 나오도록</h1>
-    <p>모델을 올리면 에이전트가 슬라이서에서 깨지는 원인(논매니폴드 엣지, 열린 면, 용접 안 된 건축 모델, 노즐보다 얇은 부재)을
-      찾고, 겉모양은 유지한 채 닫힌 솔리드로 고친 뒤, 수정 전후를 같은 카메라의 오르빗 영상으로 보여줍니다.</p>
-    <span class="badge">무료 베타</span><span class="badge">소스 코드 비공개</span>
+<div class="topbar"><nav class="wrap">
+  <a class="brand" href="./"><span class="logo"></span>printdoctor</a>
+  <span class="links"><a href="#tool">도구</a><a href="#how">작동 방식</a><a href="#faq">FAQ</a></span>
+  <span class="lang"><a href="../" >EN</a><a href="./" aria-current="page">한국어</a></span>
+</nav></div>
+<main class="wrap">
+  <header class="hero">
+    <h1>3D 프린팅용 STL 수리</h1>
+    <p>모델을 놓으면 브라우저에서 바로 무료로 점검하고, 한 번 눌러 고칩니다. 겉모양은 그대로 두고 오류만 없앱니다. 구멍, 논매니폴드 엣지, 뒤집힌 면, 흩어진 조각, 노즐보다 얇은 부재까지 처리합니다.</p>
+    <div class="pills"><span class="pill">무료 베타</span><span class="pill">가입 없음</span><span class="pill">24시간 뒤 파일 삭제</span></div>
   </header>
 
-  <section id="try">
-    <h2>직접 해 보기</h2>
-    <p class="note">STL·OBJ·PLY·OFF·GLB·3MF 모델을 올리면 서버에서 고쳐서 돌려드립니다. 회원가입은 필요 없습니다.
-      요청 문장을 쓰면(예: "난간은 지우고 글자는 남겨줘") 하루 한도 안에서 에이전트가 처리하고, 비우면 자동 수리 파이프라인이 처리합니다.</p>
-    <form id="pd-form">
-      <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden><span></span></label>
-      <div class="row">
-        <input id="pd-req" maxlength="500" placeholder="요청 (선택): 예) 얇은 난간은 지우고 간판 글자는 남겨줘">
-        <label class="scale">배율 <input id="pd-scale" type="number" value="1" step="any" min="0.001"></label>
+  <section id="tool" class="tool">
+    <label id="pd-drop" class="drop"><input id="pd-file" type="file" hidden accept=".stl,.obj,.ply,.off,.glb,.gltf,.3mf">
+      <span class="ico"></span><b></b><small></small></label>
+    <div class="toolgrid">
+      <div id="pd-view" class="view single" hidden><div class="pane"></div><div class="pane" hidden></div></div>
+      <div id="pd-check" class="check" hidden>
+        <span id="pd-badge" class="badge-state" hidden></span>
+        <h3>결함</h3><ul class="def"></ul>
+        <h3>형상</h3><ul class="geo"></ul>
+        <p class="note">점검은 브라우저 안에서 합니다. 파일은 고치기를 누를 때만 올라갑니다.</p>
       </div>
-      <label class="consent"><input id="pd-consent" type="checkbox"> <span><a href="../privacy.html#ko">개인정보처리방침</a>과 <a href="../terms.html#ko">이용약관</a>에 동의합니다. 남의 저작물·기밀 모델은 올리지 마세요.</span></label>
-      <button id="pd-send" class="primary">고치기</button>
-      <p id="pd-info" class="note"></p>
-    </form>
-    <p id="pd-status" class="status"></p>
+    </div>
+    <div class="row">
+      <input id="pd-req" maxlength="500" placeholder="요청 (선택): 예) 얇은 난간은 지우고 간판 글자는 남겨줘">
+      <label class="scale">배율 <input id="pd-scale" type="number" value="1" step="any" min="0.001"></label>
+    </div>
+    <label class="consent"><input id="pd-consent" type="checkbox"> <span><a href="../privacy.html#ko">개인정보처리방침</a>과 <a href="../terms.html#ko">이용약관</a>에 동의합니다. 공유 권한이 있는 모델만 올려 주세요.</span></label>
+    <div class="row act"><button id="pd-send" class="primary" type="button">고치기</button><span id="pd-status" class="status"></span></div>
     <pre id="pd-log" class="log"></pre>
-    <div id="pd-view" class="view" hidden><div class="pane"><span class="tag">수정 전</span></div><div class="pane"><span class="tag">수정 후</span></div></div>
     <div id="pd-files" class="files"></div>
+    <p id="pd-info" class="note"></p>
   </section>
   <div class="ad" data-slot="top"></div>
 
   <section>
-    <h2>수정 전 / 후</h2>
-    <p class="note">가운데 손잡이를 끌어 보세요. 같은 카메라, 같은 프레임입니다.</p>
+    <h2>예시: 깨진 모델 수정 전과 후</h2>
+    <p class="note">가운데 손잡이를 끌어 보세요. 같은 카메라, 같은 프레임입니다. 빨강은 열린·논매니폴드 엣지, 주황은 너무 얇아 출력되지 않는 부재입니다.</p>
     <div class="ba">
       <video class="before" src="../media/before.mp4" muted loop playsinline preload="auto"></video>
       <video class="after" src="../media/after.mp4" muted loop playsinline preload="auto"></video>
       <span class="tag" style="left:10px">BEFORE</span><span class="tag" style="right:10px">AFTER</span>
       <div class="bar"></div>
     </div>
-    <div class="legend">
-      <span><i style="background:#f2261f"></i>열린 면 · 논매니폴드 엣지</span>
-      <span><i style="background:#ff8c1a"></i>출력할 수 없는 얇은 부재 (제거)</span>
-      <span>글자·창틀처럼 면에 붙은 양각은 유지</span>
-    </div>
   </section>
 
+  <section id="how">
+    <h2>작동 방식</h2>
+    <div class="cards three"><div class="card"><span class="num">1</span><h3>파일 놓기</h3><p>STL, OBJ, PLY, GLB, 3MF, OFF. 먼저 브라우저에서 구멍, 논매니폴드 엣지, 뒤집힌 면, 조각 수, 크기를 점검합니다.</p></div><div class="card"><span class="num">2</span><h3>고치기</h3><p>서버가 겉모양을 유지한 닫힌 솔리드로 다시 만들고, 노즐보다 얇은 부재를 정리한 뒤 결과를 검증합니다. 요청 문장을 쓰면 에이전트가 그대로 따릅니다.</p></div><div class="card"><span class="num">3</span><h3>확인하고 내려받기</h3><p>수정 전과 후를 나란히 3D로 돌려 보고, 출력 가능한 STL을 내려받습니다.</p></div></div>
+  </section>
 
-
+  <section>
+    <h2>출력을 망치는 오류와 처리 방법</h2>
+    <p class="note">아래 오류가 있으면 슬라이서가 벽을 빠뜨리거나, 안팎을 바꿔 채우거나, 층을 건너뜁니다.</p>
+    <div class="cards errs"><div class="card"><span class="num">01</span><h3>열린 엣지(구멍)</h3><dl><dt>무엇</dt><dd>면 하나에만 붙은 엣지, 표면이 닫히지 않은 상태입니다.</dd><dt>슬라이서에서</dt><dd>안과 밖을 구분하지 못해 벽과 바닥이 빠집니다.</dd><dt>printdoctor는</dt><dd>닫힌 솔리드로 다시 만들고 주변 면을 따라 구멍을 메웁니다.</dd></dl></div><div class="card"><span class="num">02</span><h3>논매니폴드 엣지</h3><dl><dt>무엇</dt><dd>면 셋 이상이 함께 쓰는 엣지. 용접되지 않은 CAD·건축 모델에서 흔합니다.</dd><dt>슬라이서에서</dt><dd>단면이 모호해져 층의 일부가 비어 나옵니다.</dd><dt>printdoctor는</dt><dd>겹치거나 맞닿은 조각을 하나의 솔리드, 하나의 깨끗한 표면으로 합칩니다.</dd></dl></div><div class="card"><span class="num">03</span><h3>뒤집힌 면</h3><dl><dt>무엇</dt><dd>이웃한 면의 감김 방향이 서로 반대인 상태입니다.</dd><dt>슬라이서에서</dt><dd>모델 일부가 뒤집힌 것으로 처리됩니다.</dd><dt>printdoctor는</dt><dd>다시 만든 표면은 모두 바깥쪽으로 일관되게 향합니다.</dd></dl></div><div class="card"><span class="num">04</span><h3>넓이 0인 면</h3><dl><dt>무엇</dt><dd>선이나 점으로 찌그러진 삼각형입니다.</dd><dt>슬라이서에서</dt><dd>슬라이서 경고, 미세한 틈, 불리언 실패의 원인이 됩니다.</dd><dt>printdoctor는</dt><dd>재구성 과정에서 없어집니다.</dd></dl></div><div class="card"><span class="num">05</span><h3>흩어진 조각</h3><dl><dt>무엇</dt><dd>창틀, 패널, 글자처럼 따로 노는 수백 개의 조각입니다.</dd><dt>슬라이서에서</dt><dd>떠 있는 조각은 실처럼 나오거나 떨어지고, 겹친 곳은 벽이 두 겹이 됩니다.</dd><dt>printdoctor는</dt><dd>조각을 한 몸으로 합치고, 노즐보다 작은 부스러기는 버립니다.</dd></dl></div><div class="card"><span class="num">06</span><h3>노즐보다 얇은 부재</h3><dl><dt>무엇</dt><dd>약 0.45 mm보다 가는 난간, 봉, 안테나입니다.</dd><dt>슬라이서에서</dt><dd>끊어진 실처럼 나오거나 아예 나오지 않습니다.</dd><dt>printdoctor는</dt><dd>찾아서 지우되, 표면에 붙은 글자·무늬 같은 양각은 남깁니다.</dd></dl></div></div>
+  </section>
 
   <div class="ad" data-slot="middle"></div>
+
   <section>
-    <h2>작동 방식</h2>
-    <div class="steps">
-      <div><b>1. 진단</b>열린·논매니폴드 엣지, 떨어진 조각, 노즐보다 얇은 독립 부재.</div>
-      <div><b>2. 솔리드화</b>메모리 가드 아래 복셀 채움, 마칭 큐브, 위상 보존 감량.</div>
-      <div><b>3. 분리·복원</b>공차를 둔 끼움 부품과 추가 부재를 정확한 불리언으로.</div>
-      <div><b>4. 색상</b>원본 머티리얼을 N개 필라멘트 부품으로, 3MF 하나에.</div>
-      <div><b>5. 검증</b>수정 전후를 CuraEngine으로 슬라이스해 경로 비교.</div>
-    </div>
-    <p class="note">에이전트(Claude)가 진단 결과와 요청("글자는 유지, 계단은 빼낼 수 있게")을 보고 단계를 고릅니다.
-      에이전트 없이도 같은 도구를 정해진 순서로 실행합니다.</p>
+    <h2>printdoctor가 다른 점</h2>
+    <div class="cards four"><div class="card"><h3>겉모양 유지</h3><p>결과를 원본과 비교해 편차(중앙값·95%)를 로그에 남깁니다.</p></div><div class="card"><h3>지저분한 내보내기에 강함</h3><p>용접 안 된 조각 수천 개짜리 SketchUp·Revit 모델, 게임·AI 생성 메시를 처리합니다.</p></div><div class="card"><h3>얇은 것을 구분</h3><p>출력이 안 되는 난간과 출력되는 글자·양각을 구분합니다.</p></div><div class="card"><h3>슬라이서 기준으로 검증</h3><p>열린·논매니폴드 엣지가 0이어야 출력 가능이라고 표시합니다.</p></div></div>
   </section>
 
+  <section>
+    <h2>다른 방법과 비교</h2>
+    <div class="tbl"><table><tr><th></th><th>직접 수리 (Blender, Meshmixer)</th><th>원클릭 구멍 메우기</th><th>printdoctor</th></tr><tr><td class="">시간</td><td class="">30분~몇 시간</td><td class="">몇 초</td><td class="good">1분 안팎</td></tr><tr><td class="">필요한 기술</td><td class="">메시 모델링</td><td class="">없음</td><td class="good">없음</td></tr><tr><td class="">조각 수천 개</td><td class="">손이 많이 감</td><td class="">가장 큰 조각만 남기기 쉬움</td><td class="good">하나의 솔리드로 합침</td></tr><tr><td class="">얇은 부재</td><td class="">눈으로 판단</td><td class="">무시</td><td class="good">찾아서 정리</td></tr><tr><td class="">원본과의 편차</td><td class="">측정 안 함</td><td class="">측정 안 함</td><td class="good">수치로 보고</td></tr><tr><td class="">비용</td><td class="">작업 시간</td><td class="">무료~유료</td><td class="good">무료 (베타)</td></tr></table></div>
+  </section>
+
+  <section>
+    <h2>이럴 때 쓰세요</h2>
+    <div class="cards four"><div class="card"><h3>건축 모형</h3><p>축소 모형용 SketchUp·Revit 내보내기</p></div><div class="card"><h3>AI 생성·게임 메시</h3><p>열리고, 서로 파고들고, 조각이 많은 메시</p></div><div class="card"><h3>3D 스캔</h3><p>사진측량·스캐너에서 생긴 구멍과 잡음</p></div><div class="card"><h3>내려받은 모델</h3><p>슬라이스하면 오류가 나거나 층이 빠지는 파일</p></div></div>
+  </section>
+
+  <section id="faq">
+    <h2>자주 묻는 질문</h2>
+    <details><summary>STL을 온라인에서 어떻게 고치나요?</summary><p>위 도구에 파일을 놓으세요. 무료 점검으로 문제를 보여 주고, 고치기를 누르면 1분 안팎에 결과를 내려받을 수 있습니다.</p></details><details><summary>어떤 형식을 올릴 수 있나요?</summary><p>STL, OBJ, PLY, GLB/GLTF, 3MF, OFF를 50 MB까지 받습니다. 결과는 STL입니다.</p></details><details><summary>모양이 바뀌나요?</summary><p>25 cm 이하 모델은 약 0.2 mm 해상도로 표면을 다시 만들기 때문에 그보다 작은 디테일은 부드러워집니다. 원본과의 편차를 재서 보여 드립니다.</p></details><details><summary>요청 칸은 무엇인가요?</summary><p>요청을 쓰면 에이전트가 수리 단계를 정합니다. 예를 들어 난간은 지우고 글자는 남깁니다. 에이전트 처리는 하루 한도가 있고, 요청이 없으면 자동 수리가 돌아갑니다.</p></details><details><summary>무료인가요? 결과를 상업적으로 써도 되나요?</summary><p>베타는 광고로 운영되는 무료 서비스이고, 모델과 결과의 권리는 모두 이용자에게 있습니다.</p></details><details><summary>내 파일은 누가 보나요?</summary><p>처리하는 서버만 봅니다. 파일과 결과는 24시간 뒤 자동 삭제됩니다. 자세한 내용은 개인정보처리방침을 보세요.</p></details><details><summary>모델 단위가 cm나 인치예요</summary><p>배율을 넣으세요. cm는 10, 인치는 25.4를 넣으면 mm가 됩니다.</p></details>
+  </section>
+
+  <section class="cta"><h2>출력할 준비 되셨나요?</h2><a class="btn primary-btn" href="#tool">모델 고치기</a></section>
   <div class="ad" data-slot="bottom"></div>
-  <footer>printdoctor · <a href="../privacy.html#ko">개인정보처리방침</a> · <a href="../terms.html#ko">이용약관</a> · <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">문의</a></footer>
+  <footer>printdoctor · <a href="../privacy.html#ko">개인정보처리방침</a> · <a href="../terms.html#ko">이용약관</a> ·
+    <a href="https://github.com/JaekunE2/JaekunE2.github.io/issues">문의</a></footer>
 </main>
 <script src="../assets/site.js"></script>
 <script src="../assets/config.js"></script>
