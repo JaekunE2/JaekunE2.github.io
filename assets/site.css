@@ -351,3 +351,45 @@ main.doc .lang a { color: var(--muted); } main.doc .lang a:hover { color: var(--
 .hero h1 { font-size: clamp(32px, 4.2vw, 52px); }
 @media (max-width: 600px) { .flow .arr { display: none; } }
 :lang(en) .hero h1 { font-size: clamp(32px, 3.8vw, 48px); }
+
+/* slicer comparison */
+.slicer { background: linear-gradient(180deg, #0b1524, #0f1b2d); color: var(--hero-ink); border: 0; padding: 44px 32px 30px; position: relative; overflow: hidden; }
+.slicer .shead p { color: var(--hero-muted); }
+.stabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.stab { border: 1px solid rgba(255,255,255,.14); background: transparent; color: var(--hero-muted); border-radius: 99px; padding: 6px 14px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.stab:hover { color: #fff; border-color: rgba(255,255,255,.35); }
+.stab.on { background: #fff; color: #111; border-color: #fff; }
+.slcap { text-align: center; color: #dfe6ef; margin: 14px auto 18px; max-width: 720px; min-height: 1.6em; font-size: 15px; }
+.slgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.slv { margin: 0; position: relative; border-radius: 16px; background: radial-gradient(600px 300px at 50% 0%, #17283f, #0a121e 70%);
+  border: 1px solid rgba(255,255,255,.08); overflow: hidden; }
+.slv canvas { display: block; width: 100%; aspect-ratio: 4 / 3; cursor: grab; touch-action: pan-y; }
+.slv canvas:active { cursor: grabbing; }
+.slv figcaption { position: absolute; left: 12px; top: 10px; right: 12px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; z-index: 1; }
+.slv figcaption b { font-size: 13px; padding: 3px 10px; border-radius: 99px; }
+.slv.bad figcaption b { background: rgba(220,38,38,.18); color: #ff9b9b; border: 1px solid rgba(220,38,38,.4); }
+.slv.good figcaption b { background: rgba(22,163,74,.18); color: #8ee6ad; border: 1px solid rgba(22,163,74,.4); }
+.slz { font-size: 12px; color: var(--hero-muted); font-variant-numeric: tabular-nums; }
+.slload { position: absolute; inset: 0; display: none; place-items: center; }
+.slicer.loading .slload { display: grid; }
+.slicer.loading .slload::after { content: ""; width: 28px; height: 28px; border-radius: 50%; border: 3px solid rgba(255,255,255,.15); border-top-color: var(--accent); animation: slspin .8s linear infinite; }
+@keyframes slspin { to { transform: rotate(360deg); } }
+.slctl { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+.slctl input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.slbtn { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.16); border-radius: 10px; padding: 6px 12px; cursor: pointer; font-size: 14px; white-space: nowrap; }
+.slbtn:hover { background: rgba(255,255,255,.14); }
+.slmode { display: flex; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 3px; }
+.slmode button { background: transparent; border: 0; color: var(--hero-muted); padding: 4px 10px; border-radius: 7px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+.slmode button.on { background: #fff; color: #111; }
+.sllegend { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--hero-muted); }
+.sllegend i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 7px; }
+.sllegend .lw { background: #ff7a45; } .sllegend .ls { background: #5b93ff; } .sllegend .lf { background: #2fbf88; }
+.slstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+.slstats div { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 10px 12px; }
+.slstats span { display: block; font-size: 12px; color: var(--hero-muted); }
+.slstats b { font-size: 16px; font-variant-numeric: tabular-nums; }
+.slnote { font-size: 12px; color: #7f8b9c; margin: 14px 0 0; text-align: center; }
+@media (max-width: 760px) {
+  .slicer { padding: 28px 14px 18px; } .slgrid { grid-template-columns: 1fr; gap: 10px; }
+  .slstats { grid-template-columns: repeat(2, 1fr); } .slbtn span { display: none; }
+}

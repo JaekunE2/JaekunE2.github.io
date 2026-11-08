@@ -64,6 +64,17 @@ C = {
   cta_up="Upload a .skp", cta_samples="See real results", hero_f1s="open edges, townhouse", hero_f2s="pieces merged into one", hero_f3s="131 × 99 × 137 mm print",
   show_h="Drag to compare", show_p="The same camera before and after. Pick a building; red marks the edges a slicer chokes on.",
   meta_l=("Scale", "Real size", "Print size", "Edge errors", "Processing"),
+  sl_h="What the slicer actually prints", sl_p="Both files sliced in UltiMaker Cura 5.9 with the same default settings. Drag the height to scrub through the layers.",
+  sl_note="CuraEngine 5.9, 0.4 mm nozzle, 0.2 mm layers, 15% infill, two walls, no support. Every layer path shown is from the real G-code; the 3D view shows about 90 of the layers.",
+  sl_l=("Walls", "Floors & roofs (top/bottom)", "Infill", "Before", "After"),
+  sl_stat=("Wall paths", "Floor/roof paths", "Infill paths", "Layers that differ by more than 10%"),
+  sl_top="Top view", sl_iso="3D view", sl_play="Replay",
+  sl_cap={"long-house": "Floor and roof slabs come out as empty outlines and walls break into gaps; after the fix the slabs are filled.",
+          "walls": "The right-hand floor plate and the small slab on the left are not in the G-code at all.",
+          "house": "Where window and balcony groups overlap, the slicer leaves hollow boxes and stray top-skin strips inside the building.",
+          "housing-blocks": "Walls drawn as single faces get no path or a thin line; whole wall runs are missing.",
+          "twin-houses": "The overlapping plinth is sliced with holes inside it.",
+          "tower": "Where the diagrid skin cuts the floors, the slicer adds broken skin and infill patches along the edges."},
   credits="Sample models: MIT-licensed test files from SketchUp/testup-2 (Trimble Inc.), thomthom/solid-inspector, Eneroth3/eneroth-solid-tools and iamahsanmehmood/openskp.",
   footer=["Privacy", "Terms", "GitHub", "Contact"]),
  "ko": dict(
@@ -123,6 +134,17 @@ C = {
   cta_up=".skp 올리기", cta_samples="실제 결과 보기", hero_f1s="열린 엣지, 타운하우스", hero_f2s="조각이 하나로", hero_f3s="출력 131 × 99 × 137 mm",
   show_h="끌어서 비교해 보세요", show_p="같은 카메라로 찍은 수정 전과 후입니다. 건물을 고르세요. 빨간 선이 슬라이서가 막히는 엣지입니다.",
   meta_l=("축척", "실제 크기", "출력 크기", "엣지 오류", "처리 시간"),
+  sl_h="슬라이서에서는 이렇게 달라집니다", sl_p="수정 전과 후 파일을 UltiMaker Cura 5.9에서 같은 기본 설정으로 슬라이스했습니다. 높이를 끌어 층을 넘겨 보세요.",
+  sl_note="CuraEngine 5.9, 노즐 0.4 mm, 층 높이 0.2 mm, 채움 15%, 벽 2줄, 서포트 없음. 보이는 경로는 모두 실제 G-code에서 가져왔고, 3D 보기에는 약 90개 층을 골라 그렸습니다.",
+  sl_l=("벽", "바닥·지붕판", "내부 채움", "수정 전", "수정 후"),
+  sl_stat=("벽 경로", "바닥·지붕판 경로", "내부 채움 경로", "10% 넘게 달라지는 층"),
+  sl_top="위에서 보기", sl_iso="3D 보기", sl_play="다시 쌓기",
+  sl_cap={"long-house": "바닥판과 지붕판이 테두리만 남은 빈 판이 되고 벽이 군데군데 끊깁니다. 수정 후에는 판이 채워집니다.",
+          "walls": "오른쪽 바닥판과 왼쪽 작은 슬래브가 G-code에 아예 없습니다.",
+          "house": "창호·발코니 그룹이 겹친 자리에 속이 빈 상자와 엉뚱한 상판 줄이 건물 안에 생깁니다.",
+          "housing-blocks": "면 한 장으로 그린 벽은 경로가 없거나 가는 선 하나로 나와, 벽 구간이 통째로 빠집니다.",
+          "twin-houses": "겹쳐 그린 기단이 속에 구멍이 뚫린 채로 슬라이스됩니다.",
+          "tower": "다이아그리드 외피가 층을 자르는 자리에 조각난 상판과 채움이 가장자리를 따라 붙습니다."},
   credits="샘플 모델: SketchUp/testup-2 (Trimble Inc.), thomthom/solid-inspector, Eneroth3/eneroth-solid-tools, iamahsanmehmood/openskp의 MIT 라이선스 테스트 파일.",
   footer=["개인정보처리방침", "이용약관", "GitHub", "문의"]),
 }
@@ -224,6 +246,10 @@ for k, c in C.items():
     tabs = "".join(f'<button type="button" role="tab" class="tab{" on" if i == 0 else ""}" data-id="{x["id"]}" '
                    f'data-meta="{e(json.dumps([f"1:{x['scale']:,}", " × ".join(f"{v / 1000:.0f}" for v in x["real_mm"]) + " m", " × ".join(f"{v:.0f}" for v in x["print_mm"]) + " mm", f"{x['before']['open_edges'] + x['before']['nonmanifold_edges']:,} → {x['after']['open_edges'] + x['after']['nonmanifold_edges']:,}", f"{x['seconds'] // 60}:{x['seconds'] % 60:02d}"], ensure_ascii=False))}">'
                    f'<img src="{pre}samples/{x["id"]}/after.jpg" alt="" loading="lazy"><span>{e(x["name_ko"] if ko else x["name_en"])}</span></button>' for i, x in enumerate(SAMPLES))
+    SL = ["long-house", "walls", "house", "housing-blocks", "twin-houses", "tower"]
+    byid = {x["id"]: x for x in SAMPLES}
+    sl_tabs = "".join(f'<button type="button" class="stab{" on" if i == 0 else ""}" data-id="{g}" data-cap="{e(c["sl_cap"][g])}">'
+                      f'{e(byid[g]["name_ko"] if ko else byid[g]["name_en"])}</button>' for i, g in enumerate(SL) if g in byid)
     ld = {"@context": "https://schema.org", "@type": "WebApplication", "name": "printdoctor", "url": "https://jaekune2.github.io/" + ("ko/" if ko else ""),
           "applicationCategory": "DesignApplication", "operatingSystem": "Web", "description": c["desc"],
           "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
@@ -250,6 +276,9 @@ for k, c in C.items():
                hero_f1=f'{H["before"]["open_edges"]:,} → 0', hero_f1s=e(c["hero_f1s"]), hero_f2=f'{H["before"]["bodies"]:,} → 1', hero_f2s=e(c["hero_f2s"]),
                hero_f3s=e(c["hero_f3s"]), show_h=e(c["show_h"]), show_p=e(c["show_p"]), tabs=tabs,
                meta_l=e(json.dumps(c["meta_l"], ensure_ascii=False)),
+               sl_h=e(c["sl_h"]), sl_p=e(c["sl_p"]), sl_note=e(c["sl_note"]), sl_tabs=sl_tabs, sl_top=e(c["sl_top"]), sl_iso=e(c["sl_iso"]),
+               sl_play=e(c["sl_play"]), sl_lw=e(c["sl_l"][0]), sl_ls=e(c["sl_l"][1]), sl_lf=e(c["sl_l"][2]), sl_b=e(c["sl_l"][3]), sl_a=e(c["sl_l"][4]),
+               sl_stat=e(json.dumps(c["sl_stat"], ensure_ascii=False)),
                ld=json.dumps(ld, ensure_ascii=False), faqld=json.dumps(faqld, ensure_ascii=False))
     for key, val in rep.items():
         out = out.replace("{{" + key + "}}", str(val))

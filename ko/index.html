@@ -100,6 +100,24 @@
     <div class="showmeta" id="showmeta" data-labels="[&quot;축척&quot;, &quot;실제 크기&quot;, &quot;출력 크기&quot;, &quot;엣지 오류&quot;, &quot;처리 시간&quot;]"></div>
   </section>
 
+  <section id="slicer" class="slicer">
+    <div class="shead"><h2>슬라이서에서는 이렇게 달라집니다</h2><p>수정 전과 후 파일을 UltiMaker Cura 5.9에서 같은 기본 설정으로 슬라이스했습니다. 높이를 끌어 층을 넘겨 보세요.</p></div>
+    <div class="stabs" role="tablist"><button type="button" class="stab on" data-id="long-house" data-cap="바닥판과 지붕판이 테두리만 남은 빈 판이 되고 벽이 군데군데 끊깁니다. 수정 후에는 판이 채워집니다.">단층 장옥</button><button type="button" class="stab" data-id="walls" data-cap="오른쪽 바닥판과 왼쪽 작은 슬래브가 G-code에 아예 없습니다.">벽체 매스</button><button type="button" class="stab" data-id="house" data-cap="창호·발코니 그룹이 겹친 자리에 속이 빈 상자와 엉뚱한 상판 줄이 건물 안에 생깁니다.">유럽식 타운하우스</button><button type="button" class="stab" data-id="housing-blocks" data-cap="면 한 장으로 그린 벽은 경로가 없거나 가는 선 하나로 나와, 벽 구간이 통째로 빠집니다.">공동주택 두 동</button><button type="button" class="stab" data-id="twin-houses" data-cap="겹쳐 그린 기단이 속에 구멍이 뚫린 채로 슬라이스됩니다.">대지 위 두 채의 주택</button><button type="button" class="stab" data-id="tower" data-cap="다이아그리드 외피가 층을 자르는 자리에 조각난 상판과 채움이 가장자리를 따라 붙습니다.">고층 타워 (Hearst Tower 모델)</button></div>
+    <p class="slcap" id="sl-cap"></p>
+    <div class="slgrid">
+      <figure class="slv bad"><figcaption><b>수정 전</b><span class="slz"></span></figcaption><canvas id="sl-b"></canvas><i class="slload"></i></figure>
+      <figure class="slv good"><figcaption><b>수정 후</b><span class="slz"></span></figcaption><canvas id="sl-a"></canvas><i class="slload"></i></figure>
+    </div>
+    <div class="slctl">
+      <button type="button" id="sl-play" class="slbtn" aria-label="다시 쌓기">↻ <span>다시 쌓기</span></button>
+      <input type="range" id="sl-r" min="0" max="1000" value="1000" aria-label="layer">
+      <div class="slmode"><button type="button" data-m="iso" class="on">3D 보기</button><button type="button" data-m="top">위에서 보기</button></div>
+    </div>
+    <div class="sllegend"><span><i class="lw"></i>벽</span><span><i class="ls"></i>바닥·지붕판</span><span><i class="lf"></i>내부 채움</span></div>
+    <div class="slstats" id="sl-stats" data-labels="[&quot;벽 경로&quot;, &quot;바닥·지붕판 경로&quot;, &quot;내부 채움 경로&quot;, &quot;10% 넘게 달라지는 층&quot;]"></div>
+    <p class="slnote">CuraEngine 5.9, 노즐 0.4 mm, 층 높이 0.2 mm, 채움 15%, 벽 2줄, 서포트 없음. 보이는 경로는 모두 실제 G-code에서 가져왔고, 3D 보기에는 약 90개 층을 골라 그렸습니다.</p>
+  </section>
+
   <div class="ad" data-slot="top"></div>
 
   <section id="samples" class="plain">

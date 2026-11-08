@@ -100,6 +100,24 @@
     <div class="showmeta" id="showmeta" data-labels="{{meta_l}}"></div>
   </section>
 
+  <section id="slicer" class="slicer">
+    <div class="shead"><h2>{{sl_h}}</h2><p>{{sl_p}}</p></div>
+    <div class="stabs" role="tablist">{{sl_tabs}}</div>
+    <p class="slcap" id="sl-cap"></p>
+    <div class="slgrid">
+      <figure class="slv bad"><figcaption><b>{{sl_b}}</b><span class="slz"></span></figcaption><canvas id="sl-b"></canvas><i class="slload"></i></figure>
+      <figure class="slv good"><figcaption><b>{{sl_a}}</b><span class="slz"></span></figcaption><canvas id="sl-a"></canvas><i class="slload"></i></figure>
+    </div>
+    <div class="slctl">
+      <button type="button" id="sl-play" class="slbtn" aria-label="{{sl_play}}">↻ <span>{{sl_play}}</span></button>
+      <input type="range" id="sl-r" min="0" max="1000" value="1000" aria-label="layer">
+      <div class="slmode"><button type="button" data-m="iso" class="on">{{sl_iso}}</button><button type="button" data-m="top">{{sl_top}}</button></div>
+    </div>
+    <div class="sllegend"><span><i class="lw"></i>{{sl_lw}}</span><span><i class="ls"></i>{{sl_ls}}</span><span><i class="lf"></i>{{sl_lf}}</span></div>
+    <div class="slstats" id="sl-stats" data-labels="{{sl_stat}}"></div>
+    <p class="slnote">{{sl_note}}</p>
+  </section>
+
   <div class="ad" data-slot="top"></div>
 
   <section id="samples" class="plain">

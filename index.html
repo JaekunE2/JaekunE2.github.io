@@ -100,6 +100,24 @@
     <div class="showmeta" id="showmeta" data-labels="[&quot;Scale&quot;, &quot;Real size&quot;, &quot;Print size&quot;, &quot;Edge errors&quot;, &quot;Processing&quot;]"></div>
   </section>
 
+  <section id="slicer" class="slicer">
+    <div class="shead"><h2>What the slicer actually prints</h2><p>Both files sliced in UltiMaker Cura 5.9 with the same default settings. Drag the height to scrub through the layers.</p></div>
+    <div class="stabs" role="tablist"><button type="button" class="stab on" data-id="long-house" data-cap="Floor and roof slabs come out as empty outlines and walls break into gaps; after the fix the slabs are filled.">Long single-storey house</button><button type="button" class="stab" data-id="walls" data-cap="The right-hand floor plate and the small slab on the left are not in the G-code at all.">Walls-only massing</button><button type="button" class="stab" data-id="house" data-cap="Where window and balcony groups overlap, the slicer leaves hollow boxes and stray top-skin strips inside the building.">Townhouse</button><button type="button" class="stab" data-id="housing-blocks" data-cap="Walls drawn as single faces get no path or a thin line; whole wall runs are missing.">Two housing blocks</button><button type="button" class="stab" data-id="twin-houses" data-cap="The overlapping plinth is sliced with holes inside it.">Two houses on a site</button><button type="button" class="stab" data-id="tower" data-cap="Where the diagrid skin cuts the floors, the slicer adds broken skin and infill patches along the edges.">High-rise tower (Hearst Tower model)</button></div>
+    <p class="slcap" id="sl-cap"></p>
+    <div class="slgrid">
+      <figure class="slv bad"><figcaption><b>Before</b><span class="slz"></span></figcaption><canvas id="sl-b"></canvas><i class="slload"></i></figure>
+      <figure class="slv good"><figcaption><b>After</b><span class="slz"></span></figcaption><canvas id="sl-a"></canvas><i class="slload"></i></figure>
+    </div>
+    <div class="slctl">
+      <button type="button" id="sl-play" class="slbtn" aria-label="Replay">↻ <span>Replay</span></button>
+      <input type="range" id="sl-r" min="0" max="1000" value="1000" aria-label="layer">
+      <div class="slmode"><button type="button" data-m="iso" class="on">3D view</button><button type="button" data-m="top">Top view</button></div>
+    </div>
+    <div class="sllegend"><span><i class="lw"></i>Walls</span><span><i class="ls"></i>Floors &amp; roofs (top/bottom)</span><span><i class="lf"></i>Infill</span></div>
+    <div class="slstats" id="sl-stats" data-labels="[&quot;Wall paths&quot;, &quot;Floor/roof paths&quot;, &quot;Infill paths&quot;, &quot;Layers that differ by more than 10%&quot;]"></div>
+    <p class="slnote">CuraEngine 5.9, 0.4 mm nozzle, 0.2 mm layers, 15% infill, two walls, no support. Every layer path shown is from the real G-code; the 3D view shows about 90 of the layers.</p>
+  </section>
+
   <div class="ad" data-slot="top"></div>
 
   <section id="samples" class="plain">
