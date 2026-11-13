@@ -279,6 +279,7 @@ for k, c in C.items():
                sl_h=e(c["sl_h"]), sl_p=e(c["sl_p"]), sl_note=e(c["sl_note"]), sl_tabs=sl_tabs, sl_top=e(c["sl_top"]), sl_iso=e(c["sl_iso"]),
                sl_play=e(c["sl_play"]), sl_lw=e(c["sl_l"][0]), sl_ls=e(c["sl_l"][1]), sl_lf=e(c["sl_l"][2]), sl_b=e(c["sl_l"][3]), sl_a=e(c["sl_l"][4]),
                sl_stat=e(json.dumps(c["sl_stat"], ensure_ascii=False)),
+               canon="https://jaekune2.github.io/ko/" if ko else "https://jaekune2.github.io/",
                ld=json.dumps(ld, ensure_ascii=False), faqld=json.dumps(faqld, ensure_ascii=False))
     for key, val in rep.items():
         out = out.replace("{{" + key + "}}", str(val))
