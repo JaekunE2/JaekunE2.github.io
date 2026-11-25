@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://jaekune2.github.io/sitemap.xml
+Sitemap: https://jaekune2.github.io/sitemap.txt
